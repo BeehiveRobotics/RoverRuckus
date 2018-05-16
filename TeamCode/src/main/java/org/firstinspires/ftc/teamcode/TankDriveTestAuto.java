@@ -9,31 +9,29 @@ import org.BeehiveRobotics.Library.Util.BROpMode;
 public class TankDriveTestAuto extends BROpMode {
     double left;
     double right;
-    TankDrive drive = new TankDrive(this);
+    private TankDrive drive = new TankDrive(this);
     public void initialize() {
-        setOpModeType(OpModeType.TeleOp);
+        setOpModeType(OpModeType.Autonomous);
         drive.mapHardware();
     }
     public void run() {
         drive.forward(1, 12);
-        showLine("Done with forward");
-        sleep(1000);
+        waitUntilNotBusy();
         drive.backward(1, 12);
-        showLine("done with backward");
-        sleep(1000);
+        waitUntilNotBusy();
         drive.spinRight(1, 12);
-        showLine("done with spinright");
-        sleep(1000);
+        waitUntilNotBusy();
         drive.spinLeft(1, 12);
-        showLine("done with spinleft");
-        sleep(1000);
+        waitUntilNotBusy();
         drive.rightForward(1, 12);
-        sleep(1000);
+        waitUntilNotBusy();
         drive.rightBackward(1, 12);
-        sleep(1000);
+        waitUntilNotBusy();
         drive.leftForward(1, 12);
-        sleep(1000);
+        waitUntilNotBusy();
         drive.leftBackward(1, 12);
+        waitUntilNotBusy();
+
     }
     public void end() {
         drive.stopMotors();
