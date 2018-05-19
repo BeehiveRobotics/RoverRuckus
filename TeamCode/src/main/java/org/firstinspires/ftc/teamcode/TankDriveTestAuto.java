@@ -16,23 +16,15 @@ public class TankDriveTestAuto extends BROpMode {
     }
     public void run() {
         drive.forward(1, 12);
-        waitUntilNotBusy();
         drive.backward(1, 12);
-        waitUntilNotBusy();
         drive.spinRight(1, 12);
-        waitUntilNotBusy();
         drive.spinLeft(1, 12);
-        waitUntilNotBusy();
         drive.rightForward(1, 12);
-        waitUntilNotBusy();
         drive.rightBackward(1, 12);
-        waitUntilNotBusy();
         drive.leftForward(1, 12);
-        waitUntilNotBusy();
         drive.leftBackward(1, 12);
-        waitUntilNotBusy();
-
     }
+    
     public void end() {
         drive.stopMotors();
     }

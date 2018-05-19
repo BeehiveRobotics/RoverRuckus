@@ -1,5 +1,8 @@
 #!/bin/bash
 git pull
+cd Library
+git pull
+cd ../
 git submodule update --recursive --remote --force
 cd Library
 git checkout master
