@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.BeehiveRobotics.Library.Motors.TankDrive;
+import org.BeehiveRobotics.Library.Motors.Java.TankDrive;
 import org.BeehiveRobotics.Library.Util.BROpMode;
 
 @TeleOp(name = "TestDriveTeleOp", group = "Test")
