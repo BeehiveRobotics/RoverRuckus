@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode
 
 import org.BeehiveRobotics.Library.Motors.Kotlin.KTTankDrive
-import org.BeehiveRobotics.Library.Sensors.Kotlin.MRGyro
 import org.BeehiveRobotics.Library.Util.BROpMode
 
 class TankRobot (opMode:BROpMode){
@@ -12,9 +11,9 @@ class TankRobot (opMode:BROpMode){
         drive.init()
     }
     companion object {
-        fun Sleep(miliseconds: Long) {
+        fun Sleep(milliseconds: Long) {
             try {
-                Thread.sleep(miliseconds)
+                Thread.sleep(milliseconds)
             } catch(e: Exception) {}
         }
     }
