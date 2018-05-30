@@ -5,13 +5,16 @@ import org.BeehiveRobotics.Library.Util.BROpMode
 
 class TankRobot (opMode:BROpMode){
     private val opMode: BROpMode = opMode
-    val drive: KTTankDrive = KTTankDrive(opMode).setGearedType(KTTankDrive.GearedType.NORMAL)
+    val drive: KTTankDrive = KTTankDrive(opMode)
     fun init() {
         drive.mapHardware()
         drive.init()
     }
+    fun stop() {
+        drive.stopMotors()
+    }
     companion object {
-        fun Sleep(milliseconds: Long) {
+        fun sleep(milliseconds: Long) {
             try {
                 Thread.sleep(milliseconds)
             } catch(e: Exception) {}
