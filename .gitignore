@@ -26,3 +26,6 @@ build/
 
 *ASUS_PC_01*
 
+.vscode/*
+gradle-wrapper.properties
+gradle-wrapper.jar

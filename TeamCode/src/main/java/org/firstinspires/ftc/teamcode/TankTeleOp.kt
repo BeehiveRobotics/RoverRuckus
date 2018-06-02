@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode
 
-import org.BeehiveRobotics.Library.Util.BROpMode
+import org.BeehiveRobotics.Library.Util.Kotlin.BROpMode
 
 class TankTeleOp: BROpMode() {
     private val robot: TankRobot = TankRobot(this)
