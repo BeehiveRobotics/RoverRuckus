@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode
 
+import org.BeehiveRobotics.Library.Motors.Kotlin.TankRobot
 import org.BeehiveRobotics.Library.Util.Kotlin.BROpMode
 
 class TankTeleOp: BROpMode() {

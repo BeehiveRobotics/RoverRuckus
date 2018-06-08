@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.BeehiveRobotics.Library.Util.Kotlin.BROpMode
-import java.util.*
+import org.BeehiveRobotics.Library.Motors.Kotlin.TankRobot
 
 @Autonomous(name = "Testing Gyro", group = "Test")
 class KotLinTest : BROpMode() {
