@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.BeehiveRobotics.Library.Motors.Java.TankDrive;
-import org.BeehiveRobotics.Library.Util.BROpMode;
+import org.BeehiveRobotics.Library.Util.Java.BROpMode;
 
 @Autonomous(name="TankDrive", group="Test")
 public class TankDriveTestAuto extends BROpMode {
