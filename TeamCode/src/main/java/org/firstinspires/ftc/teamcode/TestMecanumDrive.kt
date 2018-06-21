@@ -14,7 +14,7 @@ class TestMecanumDrive: BROpMode() {
     }
     override fun run() {
         showLine("Forward")
-        robot.drive.forward(1.0, 500.0)
+        robot.drive.forward(1.0, 12.0)
         showLine("Backward")
         robot.drive.backward(1.0, 12.0)
         showLine("Strafe Left")

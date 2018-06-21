@@ -29,3 +29,12 @@ build/
 .vscode/*
 gradle-wrapper.properties
 gradle-wrapper.jar
+
+.project
+.settings/
+
+FtcRobotController/.classpath
+FtcRobotController/.project
+FtcRobotController/.settings/
+
+TeamCode/.classpath
