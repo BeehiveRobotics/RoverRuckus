@@ -1,5 +1,5 @@
 # k so
 
-issues. 
+issues.
 
 just put problems here. k thx
