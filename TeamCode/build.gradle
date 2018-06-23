@@ -16,7 +16,7 @@ apply from: '../build.common.gradle'
 apply plugin: 'kotlin-android'
 
 android {
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '25.0.3'
 }
 repositories {
     mavenCentral()
