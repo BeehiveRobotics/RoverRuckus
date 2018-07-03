@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.hardware.DcMotor
-import org.BeehiveRobotics.Library.Util.Kotlin.BROpMode
-import org.BeehiveRobotics.Library.Robots.Kotlin.MecanumRobot
+import org.BeehiveRobotics.Library.Util.BROpMode
+import org.BeehiveRobotics.Library.Robots.MecanumRobot
 
 @Autonomous(name = "Testing MecanumDrive", group = "Test")
 class TestMecanumDrive: BROpMode() {

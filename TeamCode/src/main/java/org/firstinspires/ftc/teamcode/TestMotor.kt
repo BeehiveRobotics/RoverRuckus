@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
-import org.BeehiveRobotics.Library.Util.Kotlin.BROpMode
-import org.BeehiveRobotics.Library.Motors.Kotlin.*
+import org.BeehiveRobotics.Library.Util.BROpMode
+import org.BeehiveRobotics.Library.Motors.*
 
 @Autonomous(name="TestMotorRamping", group="Test")
 class TestMotor: BROpMode() {

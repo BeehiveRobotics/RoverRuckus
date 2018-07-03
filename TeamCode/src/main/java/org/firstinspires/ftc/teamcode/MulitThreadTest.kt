@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
-import org.BeehiveRobotics.Library.Robots.Kotlin.MecanumRobot
-import org.BeehiveRobotics.Library.Util.Kotlin.BROpMode
+import org.BeehiveRobotics.Library.Robots.MecanumRobot
+import org.BeehiveRobotics.Library.Util.BROpMode
 
 @Autonomous(name="Testing Multi-Threading", group="Test")
 class MulitThreadTest: BROpMode() {
