@@ -38,3 +38,5 @@ FtcRobotController/.project
 FtcRobotController/.settings/
 
 TeamCode/.classpath
+gradlew
+gradlew.bat
