@@ -12,7 +12,7 @@ class TestMotor: BROpMode() {
         this.motor = Motor(this, "fl")
     }
     override fun run() {
-        this.motor.setTarget(1120.0 * 10)
+        this.motor.target = 1120.0 * 10
         while(!(this.motor.isAtTarget())) {
             this.motor.setPower(1.0)
         }
