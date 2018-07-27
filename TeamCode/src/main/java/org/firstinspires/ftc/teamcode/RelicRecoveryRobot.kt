@@ -5,16 +5,15 @@ import org.BeehiveRobotics.Library.Systems.MecanumDrive
 import com.qualcomm.robotcore.util.ElapsedTime
 
 class RelicRecoveryRobot(private val opMode: BROpMode) {
-    internal val drive: MecanumDrive = MecanumDrive(opMode)
-    internal val forklift: RelicRecoveryForklift = RelicRecoveryForklift(opMode)
-    internal val relicClaw: RelicRecoveryRelicClaw = RelicRecoveryRelicClaw(opMode)
+    internal lateinit  var drive: MecanumDrive
+    internal lateinit var forklift: RelicRecoveryForklift
+    internal lateinit var relicClaw: RelicRecoveryRelicClaw
     final val BUMPER_SLOW_SPEED: Double = 0.25
     final val D_PAD_SLOW_SPEED: Double = 0.25
     fun init() {
-        drive.mapHardware()
-        forklift.mapHardware()
-        relicClaw.mapHardware()
-        drive.init()
+        drive = MecanumDrive(opMode)
+        forklift = RelicRecoveryForklift(opMode)
+        relicClaw = RelicRecoveryRelicClaw(opMode)
     }
     fun grabSecondGlyph() {
         forklift.openClaw()

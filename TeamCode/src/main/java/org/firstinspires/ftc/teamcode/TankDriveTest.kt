@@ -1,13 +1,14 @@
-package org.BeehiveRobotics.Library.Tests
+package org.firstinspires.ftc.teamcode
 
 import org.BeehiveRobotics.Library.Robots.TankRobot
 import org.BeehiveRobotics.Library.Util.BROpMode
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
-@Autonomous(name="Testing TankDrive", group = "Test")
+
+@Autonomous(name="Test TankDrive", group = "Test")
 class TankDriveTest: BROpMode() {
     private val robot: TankRobot = TankRobot(this)
     override fun initialize() {
-        setOpModeType(OpModeType.Autonomous)
+        opModeType = OpModeType.Autonomous
         this.robot.init()
     }
     override fun run() {

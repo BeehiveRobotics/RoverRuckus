@@ -1,9 +1,12 @@
-package org.BeehiveRobotics.Library.Tests
+package org.firstinspires.ftc.teamcode
 
 import org.BeehiveRobotics.Library.Util.BROpMode
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp
+
+@TeleOp(name="Test Controller", group="Test")
 class ControllerTest: BROpMode() {
     override fun initialize() {
-        setOpModeType(OpModeType.TeleOp)
+        opModeType = OpModeType.TeleOp
     }
     override fun run() {
         addData("Left Stick X", controller1.leftStickX().toString())
