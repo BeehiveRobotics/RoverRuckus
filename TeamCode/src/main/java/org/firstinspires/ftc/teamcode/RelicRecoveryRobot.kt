@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode
 
 import org.BeehiveRobotics.Library.Util.BROpMode
-import org.BeehiveRobotics.Library.Motors.MecanumDrive
+import org.BeehiveRobotics.Library.Systems.MecanumDrive
 import com.qualcomm.robotcore.util.ElapsedTime
 
 class RelicRecoveryRobot(private val opMode: BROpMode) {
