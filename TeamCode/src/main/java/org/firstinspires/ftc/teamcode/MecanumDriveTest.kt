@@ -102,7 +102,4 @@ class MecanumDriveTest: BROpMode() {
         robot.drive.backwardRight(1.0, 6.0)
 
     }
-    override fun end() {
-        robot.drive.stopMotors()
-    }
 }

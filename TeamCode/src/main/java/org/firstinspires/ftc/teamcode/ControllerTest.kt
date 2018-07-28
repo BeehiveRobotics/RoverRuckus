@@ -37,7 +37,4 @@ class ControllerTest: BROpMode() {
         addData("Right bumper toggle", controller1.rightBumperToggle().toString())
         updateTelemetry()
     }
-    override fun end() {
-
-    }
 }

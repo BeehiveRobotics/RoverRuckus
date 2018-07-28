@@ -7,7 +7,7 @@ import org.BeehiveRobotics.Library.Sensors.REVTouchSensor
 import com.qualcomm.robotcore.util.ElapsedTime
 import org.BeehiveRobotics.Library.Systems.RobotSystem
 
-class RelicRecoveryForklift(private val opMode: BROpMode): RobotSystem(opMode) {
+class RelicRecoveryForklift(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     private val motor: Motor = Motor(opMode, "flm")
     private val rightClaw: Servo = Servo(opMode, "flrc")
     private val leftClaw: Servo = Servo(opMode, "fllc")
@@ -20,13 +20,14 @@ class RelicRecoveryForklift(private val opMode: BROpMode): RobotSystem(opMode) {
     private final val CLAW_OPEN_ALL_THE_WAY_POSITION: Double = 0.0
     private final val CLAW_CLOSE_POSITION: Double = 0.0
     private var task: Tasks = Tasks.Stop
+    private var milliseconds = 0.0
     
     init {
         rightClaw.setDirection(com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE)
     }
     
     enum class Tasks {
-        MoveUntilDown, MoveUntilUp, Stop
+        MoveUntilDown, MoveUntilUp, Stop, AutoInit, MoveMotor
     }
 
     fun init() {
@@ -34,12 +35,17 @@ class RelicRecoveryForklift(private val opMode: BROpMode): RobotSystem(opMode) {
         moveUntilDown()
     }
 
-    fun autoInit() {
+    fun autoInit(waitforCompletion: Boolean = true) {
+        if(!waitforCompletion) {
+            task = Tasks.AutoInit
+            val thread = Thread(this)
+            thread.start()
+        }
         openClaw()
         init()
         closeClaw()
         sleep(350)
-        moveMotor(1.0, 200)
+        moveMotor(1.0, 200.0)
     }
 
     fun closeClaw() {
@@ -90,7 +96,14 @@ class RelicRecoveryForklift(private val opMode: BROpMode): RobotSystem(opMode) {
         leftClaw.setPosition(position)
     }
     
-    fun moveMotor(speed: Double, milliseconds: Long) {
+    fun moveMotor(speed: Double, milliseconds: Double, waitForCompletion: Boolean = true) {
+        this.motorSpeed = speed
+        this.milliseconds = milliseconds
+        if(!waitForCompletion) {
+            task = Tasks.MoveMotor
+            val thread = Thread(this)
+            thread.start()
+        }
         val runTime: ElapsedTime = ElapsedTime()
         runTime.reset()
         while(runTime.milliseconds() < milliseconds) {
@@ -129,9 +142,9 @@ class RelicRecoveryForklift(private val opMode: BROpMode): RobotSystem(opMode) {
         stop()
     }
     
-    fun moveUntilUp (speed: Double = 1.0, runOnOtherThread: Boolean = false) {
+    fun moveUntilUp (speed: Double = 1.0, waitforCompletion: Boolean = true) {
         this.motorSpeed = speed
-        if(runOnOtherThread) {
+        if(!waitforCompletion) {
             task = Tasks.MoveUntilUp
             val thread: Thread = Thread(this)
             thread.start()
@@ -152,6 +165,8 @@ class RelicRecoveryForklift(private val opMode: BROpMode): RobotSystem(opMode) {
             Tasks.Stop -> stop()
             Tasks.MoveUntilDown -> moveUntilDown(motorSpeed, false)
             Tasks.MoveUntilUp -> moveUntilUp(motorSpeed, false)
+            Tasks.AutoInit -> autoInit()
+            Tasks.MoveMotor -> moveMotor(motorSpeed, milliseconds)
         }
     }
 }

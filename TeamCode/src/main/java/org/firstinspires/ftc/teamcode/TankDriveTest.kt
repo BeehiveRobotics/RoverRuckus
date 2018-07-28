@@ -64,7 +64,4 @@ class TankDriveTest: BROpMode() {
         this.robot.drive.rightBackward(0.5, 12.0)
 
     }
-    override fun end() {
-        this.robot.drive.stopMotors()
-    }
 }

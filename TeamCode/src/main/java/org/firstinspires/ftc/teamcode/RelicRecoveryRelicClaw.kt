@@ -6,7 +6,7 @@ import org.BeehiveRobotics.Library.Servos.Servo
 import com.qualcomm.robotcore.util.ElapsedTime
 import org.BeehiveRobotics.Library.Systems.RobotSystem
 
-class RelicRecoveryRelicClaw(private val opMode: BROpMode): RobotSystem(opMode) {
+class RelicRecoveryRelicClaw(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     private val motor: Motor = Motor(opMode, "rcm")
     private val claw: Servo = Servo(opMode, "rcc")
     private val arm: Servo = Servo(opMode, "rca")

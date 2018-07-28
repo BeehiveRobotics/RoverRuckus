@@ -9,8 +9,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables
 import org.firstinspires.ftc.robotcore.internal.vuforia.VuforiaLocalizerImpl
+import org.BeehiveRobotics.Library.Systems.RobotSystem
 
-class RelicRecoveryPhone(private val opMode: BROpMode) {
+class RelicRecoveryPhone(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     private val SIDE_POSITION = 0.5
     val  PHONE_DISTANCE_OFFSET = 3.0
     val parameters = VuforiaLocalizer.Parameters(opMode.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", opMode.hardwareMap.appContext.getPackageName()))
@@ -26,8 +27,18 @@ class RelicRecoveryPhone(private val opMode: BROpMode) {
     private val PICTOGRAPH_POSITION = 0.5
     private val FRONT_POSITION = 0.0
     private val isCameraOpened = false
-    
-    fun getMark(): RelicRecoveryVuMark {
+    private var task = Tasks.GetMark
+
+    enum class Tasks {
+        GetMark, None
+    }
+    fun getMark(waitForCompletion: Boolean = true): RelicRecoveryVuMark {
+        isBusy = true
+        if(!waitForCompletion) {
+            this.task = Tasks.GetMark
+            val thread = Thread(this)
+            thread.start()
+        }
         CameraDevice.getInstance().setFlashTorchMode(true)
         relicTrackables.activate()
         setServoPosition(PICTOGRAPH_POSITION)
@@ -41,6 +52,7 @@ class RelicRecoveryPhone(private val opMode: BROpMode) {
         opMode.telemetry.addData("Pictograph", "%s visible", vuMark)
         opMode.telemetry.update()
         closeVuforia()
+        isBusy = false
         return vuMark
     }
     private fun setServoPosition(position: Double) {
@@ -53,5 +65,13 @@ class RelicRecoveryPhone(private val opMode: BROpMode) {
 
     fun faceSideways() {
         setServoPosition(SIDE_POSITION)
+    }
+    override fun run() {
+        isBusy = true
+        when(task) {
+            Tasks.None -> return
+            Tasks.GetMark -> getMark()
+        }
+        isBusy = false
     }
 }

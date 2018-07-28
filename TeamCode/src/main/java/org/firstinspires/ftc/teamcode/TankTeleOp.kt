@@ -16,7 +16,4 @@ class TankTeleOp: BROpMode() {
         val right: Double = controller1.rightStickY()
         robot.drive.drive(left, right)
     }
-    override fun end() {
-        robot.drive.stopMotors()
-    }
 }

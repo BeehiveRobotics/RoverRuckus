@@ -18,9 +18,4 @@ class TestMotor: BROpMode() {
         }
 
     }
-    override fun end() {
-        this.motor.stopMotor()
-    }
-
-
 }

@@ -6,9 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 
 @TeleOp(name = "RRTeleOp", group = "RR")
 class RelicRecoveryTeleOp(): BROpMode() {
-    private var robot: RelicRecoveryRobot = RelicRecoveryRobot(this)
+    private val robot: RelicRecoveryRobot = RelicRecoveryRobot(this)
     override fun initialize() {
-        robot = RelicRecoveryRobot(this)
         opModeType = OpModeType.TeleOp
         robot.init()
     }
@@ -65,10 +64,4 @@ class RelicRecoveryTeleOp(): BROpMode() {
         
         robot.relicClaw.moveMotor(controller2.leftTrigger() - controller2.rightTrigger())
     }
-    override fun end() {
-        robot.drive.stopMotors()
-        robot.forklift.stop()
-        robot.relicClaw.stop()
-    }
-
 }

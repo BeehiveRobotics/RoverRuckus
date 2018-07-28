@@ -17,7 +17,4 @@ class MecanumTeleop: BROpMode() {
         val spin = controller1.rightStickX()
         robot.drive.drive(forward, side, spin)
     }
-    override fun end() {
-        robot.drive.stopMotors()
-    }
 }

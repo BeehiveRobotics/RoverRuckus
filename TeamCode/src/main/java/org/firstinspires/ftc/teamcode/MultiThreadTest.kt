@@ -17,8 +17,4 @@ class MultiThreadTest: BROpMode() {
         updateTelemetry()
         robot.waitUntilNotBusy()
     }
-    override fun end() {
-        robot.drive.stopMotors()
-    }
-
 }
