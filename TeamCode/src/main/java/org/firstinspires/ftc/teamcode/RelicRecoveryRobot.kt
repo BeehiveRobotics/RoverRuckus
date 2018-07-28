@@ -8,6 +8,9 @@ class RelicRecoveryRobot(private val opMode: BROpMode) {
     internal lateinit  var drive: MecanumDrive
     internal lateinit var forklift: RelicRecoveryForklift
     internal lateinit var relicClaw: RelicRecoveryRelicClaw
+    internal lateinit var jewelArm: RelicRecoveryJewelArm
+    internal lateinit var phone: RelicRecoveryPhone
+
     final val BUMPER_SLOW_SPEED: Double = 0.25
     final val D_PAD_SLOW_SPEED: Double = 0.25
     fun init() {
