@@ -56,7 +56,7 @@ class RelicRecoveryPhone(private val opMode: BROpMode): RobotSystem(opMode), Run
         return vuMark
     }
     private fun setServoPosition(position: Double) {
-      servo.setPosition(position)
+      servo.position = position
     }
     fun closeVuforia() {
         vuforia.close()

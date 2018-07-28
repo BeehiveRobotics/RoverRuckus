@@ -23,7 +23,7 @@ class RelicRecoveryForklift(private val opMode: BROpMode): RobotSystem(opMode), 
     private var milliseconds = 0.0
     
     init {
-        rightClaw.setDirection(com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE)
+        rightClaw.direction = com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE
     }
     
     enum class Tasks {
@@ -92,8 +92,8 @@ class RelicRecoveryForklift(private val opMode: BROpMode): RobotSystem(opMode), 
     }
     
     private fun setClawPosition(position: Double) {
-        rightClaw.setPosition(position)
-        leftClaw.setPosition(position)
+        rightClaw.position = position
+        leftClaw.position = position
     }
     
     fun moveMotor(speed: Double, milliseconds: Double, waitForCompletion: Boolean = true) {

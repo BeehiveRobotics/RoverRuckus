@@ -60,11 +60,11 @@ class RelicRecoveryJewelArm(private val opMode: BROpMode): RobotSystem(opMode), 
     }
 
     private fun setEndPosition(position: Double) {
-        endServo.setPosition(position)
+        endServo.position = position
     }
 
     private fun setUpDownPosition(position: Double) {
-        upDownServo.setPosition(position)
+        upDownServo.position = position
     }
 
     override fun run() {
