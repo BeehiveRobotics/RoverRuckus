@@ -12,9 +12,9 @@ class MecanumTeleop: BROpMode() {
         robot.init()
     }
     override fun run() {
-        val forward = controller1.leftStickY()
-        val side = controller1.leftStickX()
-        val spin = controller1.rightStickX()
+        val forward = controller1.leftStickY
+        val side = controller1.leftStickX
+        val spin = controller1.rightStickX
         robot.drive.drive(forward, side, spin)
     }
 }

@@ -12,8 +12,8 @@ class TankTeleOp: BROpMode() {
         robot.init()
     }
     override fun run() {
-        val left: Double = controller1.leftStickY()
-        val right: Double = controller1.rightStickY()
+        val left: Double = controller1.leftStickY
+        val right: Double = controller1.rightStickY
         robot.drive.drive(left, right)
     }
 }

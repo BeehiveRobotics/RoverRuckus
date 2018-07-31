@@ -33,7 +33,6 @@ class RelicRecoveryRobot(private val opMode: BROpMode): Robot(opMode) {
     val D_PAD_SLOW_SPEED = 0.25
     val BUMPER_SLOW_SPEED = 0.25
     val MOVE_TOWARDS_CRYPTOBOX_DISTANCE_RED_RECOVERY = 31.0
-
     val STRAFING_DAMPEN_FACTOR_FOR_MULTI_GLYPH = 0.1
 
     fun init() {
