@@ -5,10 +5,9 @@ import org.BeehiveRobotics.Library.Util.BROpMode
 import org.BeehiveRobotics.Library.Motors.Motor
 
 @Autonomous(name="Test Motor", group="Test")
-class TestMotor: BROpMode() {
+class TestMotor: BROpMode(OpModeType.Autonomous) {
     private lateinit var motor: Motor
     override fun initialize() {
-        opModeType = OpModeType.Autonomous
         this.motor = Motor(this, "fl")
     }
     override fun run() {

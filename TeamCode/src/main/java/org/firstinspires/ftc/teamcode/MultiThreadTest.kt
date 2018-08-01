@@ -5,10 +5,9 @@ import org.BeehiveRobotics.Library.Robots.MecanumRobot
 import org.BeehiveRobotics.Library.Util.BROpMode
 
 @Autonomous(name="Test Multi Threading", group="Test")
-class MultiThreadTest: BROpMode() {
+class MultiThreadTest: BROpMode(OpModeType.TeleOp) {
     val robot: MecanumRobot  = MecanumRobot(this)
     override fun initialize() {
-        opModeType = OpModeType.TeleOp
         robot.init()
     }
     override fun run() {

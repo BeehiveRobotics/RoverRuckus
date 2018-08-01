@@ -5,7 +5,7 @@ import org.BeehiveRobotics.Library.Util.BROpMode
 import org.BeehiveRobotics.Library.Servos.Servo
 
 @Autonomous(name="Test Servo", group="Test")
-class ServoTest: BROpMode() {
+class ServoTest: BROpMode(OpModeType.Autonomous) {
     private lateinit var servo: Servo
     override fun initialize() {
         servo = Servo(this, "servo")

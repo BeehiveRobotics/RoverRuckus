@@ -4,10 +4,8 @@ import org.BeehiveRobotics.Library.Util.BROpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 
 @TeleOp(name="Test Controller", group="Test")
-class ControllerTest: BROpMode() {
-    override fun initialize() {
-        opModeType = OpModeType.TeleOp
-    }
+class ControllerTest: BROpMode(OpModeType.TeleOp) {
+    override fun initialize() {}
     override fun run() {
         addData("Left Stick X", controller1.leftStickX.toString())
         addData("Left Stick Y", controller1.leftStickY.toString())

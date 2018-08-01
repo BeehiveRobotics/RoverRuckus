@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime
 import org.BeehiveRobotics.Library.Util.AllianceColor
 
 @Autonomous(name="RR Red Recovery", group = "RR")
-class RelicRecoveryRedRecovery(): BROpMode() {
+class RelicRecoveryRedRecovery(): BROpMode(OpModeType.Autonomous) {
     private val robot = RelicRecoveryRobot(this)
     private var pictograph = RelicRecoveryVuMark.UNKNOWN
     private val runTime = ElapsedTime()

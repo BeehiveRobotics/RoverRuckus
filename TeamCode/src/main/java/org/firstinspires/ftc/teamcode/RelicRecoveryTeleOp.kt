@@ -5,10 +5,9 @@ import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 
 @TeleOp(name = "RRTeleOp", group = "RR")
-class RelicRecoveryTeleOp(): BROpMode() {
+class RelicRecoveryTeleOp(): BROpMode(OpModeType.TeleOp) {
     private val robot: RelicRecoveryRobot = RelicRecoveryRobot(this)
     override fun initialize() {
-        opModeType = OpModeType.TeleOp
         robot.init()
     }
     override fun run() {
