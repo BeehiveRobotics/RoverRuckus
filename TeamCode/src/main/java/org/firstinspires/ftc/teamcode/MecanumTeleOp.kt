@@ -14,6 +14,6 @@ class MecanumTeleop: BROpMode(OpModeType.TeleOp) {
         val forward = controller1.leftStickY
         val side = controller1.leftStickX
         val spin = controller1.rightStickX
-        robot.drive.drive(forward, side, spin)
+        robot.drive.drive(side, forward, spin)
     }
 }

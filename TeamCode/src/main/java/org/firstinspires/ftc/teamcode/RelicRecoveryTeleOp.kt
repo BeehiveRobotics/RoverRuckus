@@ -34,9 +34,9 @@ class RelicRecoveryTeleOp(): BROpMode(OpModeType.TeleOp) {
             else if (controller2.dpad_right) robot.drive.strafeRight(robot.D_PAD_SLOW_SPEED)
             else                             robot.drive.stopMotors()
         }
-        if (controller1.leftBumper) robot.drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT)
+        if (controller1.leftBumper) robot.drive.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
 
-        if (controller2.leftBumper) robot.drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE)
+        if (controller2.leftBumper) robot.drive.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
 
         //ForkLift
         if (controller1.a) robot.forklift.closeClaw()
@@ -54,12 +54,12 @@ class RelicRecoveryTeleOp(): BROpMode(OpModeType.TeleOp) {
         robot.forklift.moveMotor(controller1.rightTrigger - controller1.leftTrigger)
 
         //RelicClaw
-        if (controller2.a) robot.relicClaw.closeClaw()
-        if (controller2.b) robot.relicClaw.openClaw()
-        if (controller2.dpad_up) robot.relicClaw.up()
+        if (controller2.a)         robot.relicClaw.closeClaw()
+        if (controller2.b)         robot.relicClaw.openClaw()
+        if (controller2.dpad_up)   robot.relicClaw.up()
         if (controller2.dpad_down) robot.relicClaw.down()
-        if (controller2.x) robot.relicClaw.pickup()
-        if (controller2.y) robot.relicClaw.driving()
+        if (controller2.x)         robot.relicClaw.pickup()
+        if (controller2.y)         robot.relicClaw.driving()
         
         robot.relicClaw.moveMotor(controller2.leftTrigger - controller2.rightTrigger)
     }
