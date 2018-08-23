@@ -25,20 +25,26 @@ class RelicRecoveryRelicClaw(private val opMode: BROpMode): RobotSystem(opMode),
     fun closeClaw() { 
         claw.position = CLOSE_POSITION
     }
+
     fun openClaw() { 
         claw.position = OPEN_POSITION
     }
+
     fun up() { 
         arm.position = UP_POSITION
     }
+
     fun down() { 
         arm.position = DOWN_POSIITION
     }
+
     fun driving() { 
         arm.position = DRIVING_POSITION
     }
+
     fun pickup() { 
         arm.position = PICKUP_POSITION
+        claw.position = CLOSE_POSITION
     }
     
     fun moveMotor(speed: Double) {
@@ -54,8 +60,7 @@ class RelicRecoveryRelicClaw(private val opMode: BROpMode): RobotSystem(opMode),
     fun stop() {
         moveMotor(0.0)
     }
-    override fun run() {
-
-    }
+    
+    override fun run() {}
 
 }

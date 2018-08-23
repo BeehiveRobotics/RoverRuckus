@@ -69,18 +69,18 @@ class RelicRecoveryForklift(private val opMode: BROpMode): RobotSystem(opMode), 
     }
 
     fun moveMotor(speed: Double) {
-        var speed: Double = speed
+        var calculated_speed: Double = speed
         if(speed < 0.0 && bottomButton.isPressed()) {
-            speed = 0.0
+            calculated_speed = 0.0
         }
         if(speed > 0.0 && topButton.isPressed()) {
-            speed = 0.0
+            calculated_speed = 0.0
         }
         if(!opMode.opModeIsActive()) {
-            speed = 0.0
+            calculated_speed = 0.0
         }
         this.motorSpeed = speed
-        motor.rawPower = speed
+        motor.rawPower = calculated_speed
     }
     
     private fun moveMotor(speed: Double, safety: Boolean) {

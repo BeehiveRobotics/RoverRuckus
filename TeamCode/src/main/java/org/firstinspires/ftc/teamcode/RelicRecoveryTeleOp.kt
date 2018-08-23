@@ -9,6 +9,7 @@ class RelicRecoveryTeleOp(): BROpMode(OpModeType.TeleOp) {
     private val robot: RelicRecoveryRobot = RelicRecoveryRobot(this)
     override fun initialize() {
         robot.init()
+        robot.phone.closeVuforia()
     }
     override fun run() {
         //drive

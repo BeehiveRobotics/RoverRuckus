@@ -37,6 +37,7 @@ class RelicRecoveryRobot(private val opMode: BROpMode): Robot(opMode) {
 
     fun init() {
         drive = MecanumDrive(opMode)
+        drive.init()
         forklift = RelicRecoveryForklift(opMode)
         relicClaw = RelicRecoveryRelicClaw(opMode)
         jewelArm = RelicRecoveryJewelArm(opMode)
