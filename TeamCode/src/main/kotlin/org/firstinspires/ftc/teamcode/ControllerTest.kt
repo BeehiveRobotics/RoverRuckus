@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode
 import org.BeehiveRobotics.Library.Util.BROpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 
-@TeleOp(name="Test Controller", group="Test")
+//@TeleOp(name="Test Controller", group="Test")
 class ControllerTest: BROpMode(OpModeType.TeleOp) {
     override fun initialize() {}
     override fun run() {

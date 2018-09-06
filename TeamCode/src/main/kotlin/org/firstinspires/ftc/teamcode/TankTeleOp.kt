@@ -4,7 +4,7 @@ import org.BeehiveRobotics.Library.Robots.TankRobot
 import org.BeehiveRobotics.Library.Util.BROpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 
-@TeleOp(name="Tank TeleOp", group="Test")
+//@TeleOp(name="Tank TeleOp", group="Test")
 class TankTeleOp: BROpMode(OpModeType.TeleOp) {
     private val robot: TankRobot = TankRobot(this)
     override fun initialize() {

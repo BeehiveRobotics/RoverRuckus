@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor
 import org.BeehiveRobotics.Library.Util.BROpMode
 import org.BeehiveRobotics.Library.Robots.MecanumRobot
 
-@Autonomous(name = "Test MecanumDrive", group = "Test")
+//@Autonomous(name = "Test MecanumDrive", group = "Test")
 class MecanumDriveTest: BROpMode(OpModeType.Autonomous) {
     private val robot: MecanumRobot = MecanumRobot(this)
     override fun initialize() {

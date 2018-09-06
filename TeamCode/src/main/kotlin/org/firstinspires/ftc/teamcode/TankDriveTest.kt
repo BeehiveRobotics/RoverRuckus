@@ -4,7 +4,7 @@ import org.BeehiveRobotics.Library.Robots.TankRobot
 import org.BeehiveRobotics.Library.Util.BROpMode
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 
-@Autonomous(name="Test TankDrive", group = "Test")
+//@Autonomous(name="Test TankDrive", group = "Test")
 class TankDriveTest: BROpMode(OpModeType.Autonomous) {
     private val robot: TankRobot = TankRobot(this)
     override fun initialize() {
