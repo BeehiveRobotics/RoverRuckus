@@ -1,3 +1,6 @@
 [submodule "Library"]
 	path = Library
 	url = https://github.com/BeehiveRobotics/Library
+[submodule "RoverRuckusCV"]
+	path = RoverRuckusCV
+	url = https://github.com/BeehiveRobotics/RoverRuckusCV
