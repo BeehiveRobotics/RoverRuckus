@@ -14,7 +14,6 @@ class CVTest: BROpMode(OpModeType.TeleOp) {
     }
     override fun run() {
         while(opModeIsActive()) {
-            showData("Sizes", cv.getSizes())
         }
     }
     override fun end() {
