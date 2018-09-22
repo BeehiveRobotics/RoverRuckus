@@ -1,4 +1,4 @@
-## Beehive Robotic's Rover Ruckus season code
+## Beehive Robotics' Rover Ruckus season code
 
 This is the repo for the 2018-19 FTC season, Rover Ruckus! We really wish that it was a water game this year, but oh well. 
 
