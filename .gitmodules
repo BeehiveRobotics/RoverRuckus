@@ -3,4 +3,4 @@
 	url = https://github.com/BeehiveRobotics/Library
 [submodule "RR2CV"]
 	path = RR2CV
-	url = github.com/BeehiveRobotics/RR2CV
+	url = https://www.github.com/BeehiveRobotics/RR2CV
