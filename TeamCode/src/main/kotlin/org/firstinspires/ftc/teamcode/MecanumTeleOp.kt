@@ -4,7 +4,7 @@ import org.BeehiveRobotics.Library.Robots.MecanumRobot
 import org.BeehiveRobotics.Library.Util.BROpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 
-//@TeleOp(name="Mecanum TeleOp", group="Test")
+@TeleOp(name="Mecanum TeleOp", group="Test")
 class MecanumTeleop: BROpMode(OpModeType.TeleOp) {
     private val robot: MecanumRobot = MecanumRobot(this)
     override fun initialize() {

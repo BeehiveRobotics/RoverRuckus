@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime
 import org.BeehiveRobotics.Library.Robots.Robot
 
 class RelicRecoveryRobot(private val opMode: BROpMode): Robot(opMode) {
-    internal lateinit  var drive: MecanumDrive
+    internal lateinit var drive: MecanumDrive
     internal lateinit var forklift: RelicRecoveryForklift
     internal lateinit var relicClaw: RelicRecoveryRelicClaw
     internal lateinit var jewelArm: RelicRecoveryJewelArm
@@ -35,7 +35,7 @@ class RelicRecoveryRobot(private val opMode: BROpMode): Robot(opMode) {
     val MOVE_TOWARDS_CRYPTOBOX_DISTANCE_RED_RECOVERY = 31.0
     val STRAFING_DAMPEN_FACTOR_FOR_MULTI_GLYPH = 0.1
 
-    fun init() {
+    override fun init() {
         drive = MecanumDrive(opMode)
         drive.init()
         forklift = RelicRecoveryForklift(opMode)
