@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode
+package org.firstinspires.ftc.teamcode.RelicRecovery
 
 import org.BeehiveRobotics.Library.Util.BROpMode
 import org.BeehiveRobotics.Library.Servos.Servo
