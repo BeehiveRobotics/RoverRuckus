@@ -1,3 +1,4 @@
+
 //
 // build.gradle in TeamCode
 //
@@ -13,3 +14,16 @@
 
 // Include common definitions from above.
 apply from: '../build.common.gradle'
+apply plugin: 'kotlin-android'
+
+android {
+    buildToolsVersion '27.0.3'
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(':DogeCV')
+    implementation project(':openCVLibrary3')
+}

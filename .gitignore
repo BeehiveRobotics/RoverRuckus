@@ -25,4 +25,17 @@ Thumbs.db
 build/
 
 *ASUS_PC_01*
+.vscode/settings.json
+gradle-wrapper.properties
+gradle-wrapper.jar
 
+.project
+.settings/
+
+FtcRobotController/.classpath
+FtcRobotController/.project
+FtcRobotController/.settings/
+
+TeamCode/.classpath
+gradlew
+gradlew.bat
