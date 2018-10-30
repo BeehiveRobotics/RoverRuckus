@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode
+package org.firstinspires.ftc.teamcode.test
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import org.BeehiveRobotics.Library.Util.BROpMode
 import org.BeehiveRobotics.Library.Servos.Servo
 
-@Autonomous(name="Test Servo", group="Test")
+//@Autonomous(name="Test Servo", group="Test")
 class ServoTest: BROpMode(OpModeType.Autonomous) {
     private lateinit var servo: Servo
     override fun initialize() {

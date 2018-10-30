@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode
 import org.BeehiveRobotics.Library.Util.BROpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
     
-@TeleOp(name="TeleOp", group="RR2")
-class RR2TeleOp(): BROpMode(OpModeType.TeleOp) {
+@TeleOp(name="Gathering TeleOp", group="RR2")
+class GatheringTeleOp(): BROpMode(OpModeType.TeleOp) {
     private val robot = Robot(this)
     override fun initialize() {
         robot.init()
