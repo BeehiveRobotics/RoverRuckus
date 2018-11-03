@@ -11,12 +11,9 @@ class ClimbingTeleOp(): BROpMode(OpModeType.TeleOp) {
     }
     override fun run() {
         robot.drive.drive(controller1.leftStickX, controller1.leftStickY, controller1.rightStickX, controller1.rightStickY)
-        robot.lift.motor.rawPower = controller1.rightTrigger - controller1.leftTrigger
+        robot.lift.climb(controller1.leftTrigger - controller1.rightTrigger)
         if(controller1.aToggle) {
             robot.lift.toggleLock()
         } 
-        if(controller1.bToggle) {
-            robot.gathering.toggleGathering()
-        }
     }
 }

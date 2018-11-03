@@ -22,12 +22,6 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode) {
         gathering.init()
     }
     fun land() {
-        lift.unlock()
-        deployment.moveUntilDown()
-        deployment.motor.resetEncoder()
-        deployment.motor.runToTarget(3000.0, -1.0)
-        drive.strafeLeft(0.5, 3.0)
-        deployment.moveUntilDown()
 
     }
     
