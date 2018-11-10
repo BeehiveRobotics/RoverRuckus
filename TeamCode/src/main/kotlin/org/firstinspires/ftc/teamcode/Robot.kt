@@ -24,7 +24,9 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode) {
     fun land() {
 
     }
-    
+    override fun start() {
+        lift.start()
+    }
     override fun waitUntilNotBusy() {
         while(opMode.opModeIsActive() && drive.isBusy && lift.isBusy && deployment.isBusy && gathering.isBusy) {}
     }

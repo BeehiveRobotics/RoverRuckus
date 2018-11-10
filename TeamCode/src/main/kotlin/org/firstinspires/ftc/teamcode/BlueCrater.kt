@@ -10,6 +10,5 @@ class BlueCrater(): BROpMode(BROpMode.OpModeType.Autonomous) {
         robot.init()
     }
     override fun run() {
-        robot.land()
     }
 }

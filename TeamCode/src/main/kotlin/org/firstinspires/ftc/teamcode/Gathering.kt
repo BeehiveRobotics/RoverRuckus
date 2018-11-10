@@ -11,7 +11,7 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode) {
     val inOutMotor = Motor(opMode, "giom")
     val rightServo = Servo(opMode, "grs")
     val leftServo = Servo(opMode, "gls")
-    private val UP_POSITION = 0.0
+    var UP_POSITION = 0.0
     private val DOWN_POSITION = 1.0
     var isOn = false
     var isUp = true

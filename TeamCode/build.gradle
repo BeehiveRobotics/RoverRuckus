@@ -24,6 +24,6 @@ repositories {
 }
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation project(':DogeCV')
-    implementation project(':openCVLibrary3')
+    //implementation project(':DogeCV')
+    //implementation project(':openCVLibrary3')
 }
