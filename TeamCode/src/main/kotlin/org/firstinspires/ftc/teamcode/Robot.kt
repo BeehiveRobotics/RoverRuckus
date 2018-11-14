@@ -11,6 +11,10 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode) {
     internal lateinit var deployment: Deployment
     internal lateinit var gathering: Gathering
     
+    fun land() {
+
+    }
+
     override fun init() {
         drive = MecanumDrive(opMode)
         drive.init()
@@ -21,12 +25,14 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode) {
         gathering = Gathering(opMode)
         gathering.init()
     }
-    fun land() {
-
-    }
+    
     override fun start() {
+        drive.start()
         lift.start()
+        deployment.start()
+        gathering.start()
     }
+
     override fun waitUntilNotBusy() {
         while(opMode.opModeIsActive() && drive.isBusy && lift.isBusy && deployment.isBusy && gathering.isBusy) {}
     }

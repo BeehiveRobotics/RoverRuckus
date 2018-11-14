@@ -36,6 +36,7 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode) {
     fun up() {
         isUp = true
         setServoPositions(UP_POSITION)
+        off()
     }
 
     fun toggleGathering() {

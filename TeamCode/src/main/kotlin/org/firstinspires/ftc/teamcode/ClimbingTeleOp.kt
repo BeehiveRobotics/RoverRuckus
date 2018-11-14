@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode
 
 import org.BeehiveRobotics.Library.Util.BROpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
-    
+
 @TeleOp(name="Climbing TeleOp", group="RR2")
 class ClimbingTeleOp(): BROpMode(OpModeType.TeleOp) {
     private val robot = Robot(this)
@@ -19,5 +19,6 @@ class ClimbingTeleOp(): BROpMode(OpModeType.TeleOp) {
         if(controller1.aToggle) {
             robot.lift.toggleLock()
         }
+        addLine(robot.lift.toString())
     }
 }

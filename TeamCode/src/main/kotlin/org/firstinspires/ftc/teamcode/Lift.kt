@@ -10,6 +10,7 @@ class Lift(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     enum class Tasks {
         CLIMBING, DEPLOYING, NEITHER
     }
+    private var currentTask = Tasks.NEITHER
     val climbMotor = Motor(opMode, "lcm")
     private val deploymentMotor = Motor(opMode, "ldm")
 
@@ -42,33 +43,47 @@ class Lift(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     override fun init() {
         climbMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
         climbMotor.rawPower = 0.0
+        climbMotor.MIN_SPEED = 0.0
         deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
         deploymentMotor.rawPower = 0.0
+        climbMotor.MIN_SPEED = 0.0
     }
     override fun start() {
         val thread = Thread(this)
         thread.start()
     }
 
+    override fun toString(): String {
+        return "" + 
+            "Task: " + currentTask.toString() + "\n" + 
+            "Deploying Speed: " + deployingSpeed + "\n" + 
+            "Climbing Speed: " + climbingSpeed + "\n" + 
+            "Deploying Motor Speed: " + deploymentMotor.rawPower + "\n" + 
+            "Climbing Motor Speed: " + climbMotor.rawPower
+    }
+
     override fun run() {
-        var currentTask = Tasks.NEITHER
         while(opMode.opModeIsActive()) {
-            if(Math.abs(deployingSpeed) > Math.abs(climbingSpeed)) currentTask = Tasks.DEPLOYING
-            else if(Math.abs(climbingSpeed) > Math.abs(deployingSpeed)) currentTask = Tasks.CLIMBING
-            else currentTask = Tasks.NEITHER
-            when(currentTask) {
-                Tasks.CLIMBING -> {
-                    deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
-                    climbMotor.rawPower = climbingSpeed
-                }
-                Tasks.DEPLOYING -> {
-                    deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-                    deploymentMotor.rawPower = deployingSpeed
-                }
-                Tasks.NEITHER -> {
-                    deploymentMotor.rawPower = 0.0
-                    climbMotor.rawPower = 0.0
-                }
+            if(Math.abs(deployingSpeed) > Math.abs(climbingSpeed)) {
+                opMode.addLine("Deploying")
+                deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+                deploymentMotor.rawPower = deployingSpeed
+                climbMotor.rawPower = 0.0
+                climbingSpeed = 0.0            
+            }
+            else if(Math.abs(climbingSpeed) > Math.abs(deployingSpeed)) {
+                opMode.addLine("Climbing")
+                deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
+                climbMotor.rawPower = climbingSpeed
+                deploymentMotor.rawPower = 0.0
+                deployingSpeed = 0.0
+            }
+            else {
+                opMode.addLine("Neither")
+                deploymentMotor.rawPower = 0.0
+                deployingSpeed = 0.0
+                climbMotor.rawPower = 0.0
+                climbingSpeed = 0.0
             }
         }
     }
