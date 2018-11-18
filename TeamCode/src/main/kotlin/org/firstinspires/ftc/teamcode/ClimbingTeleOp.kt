@@ -9,16 +9,17 @@ class ClimbingTeleOp(): BROpMode(OpModeType.TeleOp) {
     override fun initialize() {
         robot.init()
     }
+    override fun firstStart() {
+        robot.start()
+    }
     override fun run() {
-        robot.drive.drive(controller1.leftStickX, controller1.leftStickY, controller1.rightStickX, controller1.rightStickY)
+        robot.drive.driveLeftRight(controller1.leftStickX, controller1.leftStickY, controller1.rightStickX, controller1.rightStickY)
         if(controller1.b) {
-            robot.lift.climbingSpeed = controller1.leftTrigger - controller1.rightTrigger
+            robot.lift.climbingSpeed = controller1.rightTrigger - controller1.leftTrigger
         } else {
-            robot.lift.deployingSpeed = controller1.leftTrigger - controller1.rightTrigger
+            robot.lift.deployingSpeed = controller1.rightTrigger - controller1.leftTrigger
         }
-        if(controller1.aToggle) {
-            robot.lift.toggleLock()
-        }
-        addLine(robot.lift.toString())
+        dashboard.addLine(robot.lift.toString())
+        dashboard.addLine(robot.lift.climbMotor.currentPosition.toString())
     }
 }

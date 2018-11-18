@@ -44,7 +44,7 @@ class ConceptTensorFlowObjectDetection(): BROpMode(BROpMode.OpModeType.TeleOp) {
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
             initTfod()
         } else {
-            addData("Sorry!", "This device is not compatible with TFOD")
+            dashboard.addData("Sorry!", "This device is not compatible with TFOD")
             sleep(1000)
         }
         if (this::tfod.isInitialized) tfod.activate()
@@ -56,12 +56,12 @@ class ConceptTensorFlowObjectDetection(): BROpMode(BROpMode.OpModeType.TeleOp) {
         if (this::tfod.isInitialized) {
             val newShapes = tfod.getUpdatedRecognitions()
             if(newShapes != null) {
-                addData("Minerals Found", newShapes.size)
+                dashboard.addData("Minerals Found", newShapes.size)
                 for(shape in newShapes) {
                     allShapes.add(shape)
                 }
             } else {
-                addLine("No new minerals found")
+                dashboard.addLine("No new minerals found")
             }
             if(allShapes != null) for(shape in allShapes) {
                 val pos = shape.getLeft()
@@ -71,11 +71,11 @@ class ConceptTensorFlowObjectDetection(): BROpMode(BROpMode.OpModeType.TeleOp) {
                 //if(shape.getLabel().equals(LABEL_GOLD_MINERAL)) addData("Gold mineral x pos", shape.getLeft())
             }
             val newMineralCount = allShapes.size-lastMineralCount
-            addData("Highest X value", highX)
-            addData("Lowest X value", lowX)
-            addData("Number of gold minerals", allShapes.size / frames)
-            addData("Average X value", xTotal/frames)
-            addData("New minerals", newMineralCount-frames)
+            dashboard.addData("Highest X value", highX)
+            dashboard.addData("Lowest X value", lowX)
+            dashboard.addData("Number of gold minerals", allShapes.size / frames)
+            dashboard.addData("Average X value", xTotal/frames)
+            dashboard.addData("New minerals", newMineralCount-frames)
             lastMineralCount = allShapes.size
             // getUpdatedRecognitions() will return null if no new information is available since
             // the last time that call was made.

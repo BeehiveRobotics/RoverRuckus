@@ -11,7 +11,7 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode) {
     val inOutMotor = Motor(opMode, "giom")
     val rightServo = Servo(opMode, "grs")
     val leftServo = Servo(opMode, "gls")
-    var UP_POSITION = 0.0
+    var UP_POSITION = 0.24
     private val DOWN_POSITION = 1.0
     var isOn = false
     var isUp = true
@@ -56,9 +56,14 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode) {
         isOn = false
         gatherMotor.rawPower = 0.0
     }
+    fun gatherBackwards() {
+        isOn = true
+        gatherMotor.rawPower = -1.0
+    }
 
     private fun setServoPositions(position: Double) {
         rightServo.position = position
         leftServo.position = position
     }
+
 }

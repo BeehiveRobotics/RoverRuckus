@@ -10,6 +10,6 @@ class BlueDepot(): BROpMode(BROpMode.OpModeType.Autonomous) {
         robot.init()
     }
     override fun run() {
-        robot.lift.climbMotor.runToPosition(6000.0, 1.0)
+        robot.land()
     }
 }

@@ -12,9 +12,8 @@ class Lift(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     }
     private var currentTask = Tasks.NEITHER
     val climbMotor = Motor(opMode, "lcm")
-    private val deploymentMotor = Motor(opMode, "ldm")
+    val deploymentMotor = Motor(opMode, "ldm")
 
-    val lockServo = Servo(opMode, "lls")
     val SERVO_LOCK_POSITION = 1.0
     val SERVO_UNLOCK_POSITION = 0.0
     var isLocked = true
@@ -22,31 +21,13 @@ class Lift(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     var deployingSpeed = 0.0
     var climbingSpeed = 0.0
 
-    fun lock() {
-        isLocked = true
-        lockServo.position = SERVO_LOCK_POSITION
-    }
-
-    fun unlock() {
-        isLocked = false
-        lockServo.position = SERVO_UNLOCK_POSITION
-    }
-
-    fun toggleLock() {
-        if(isLocked) {
-            unlock()
-        } else {
-            lock()
-        }
-    }
-
     override fun init() {
         climbMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
         climbMotor.rawPower = 0.0
-        climbMotor.MIN_SPEED = 0.0
+        climbMotor.MIN_SPEED = 0.4
+        climbMotor.RAMPING_COEFFICIENT = 0.6
         deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
         deploymentMotor.rawPower = 0.0
-        climbMotor.MIN_SPEED = 0.0
     }
     override fun start() {
         val thread = Thread(this)
@@ -65,21 +46,19 @@ class Lift(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     override fun run() {
         while(opMode.opModeIsActive()) {
             if(Math.abs(deployingSpeed) > Math.abs(climbingSpeed)) {
-                opMode.addLine("Deploying")
                 deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
                 deploymentMotor.rawPower = deployingSpeed
                 climbMotor.rawPower = 0.0
-                climbingSpeed = 0.0            
+                climbingSpeed = 0.0
             }
             else if(Math.abs(climbingSpeed) > Math.abs(deployingSpeed)) {
-                opMode.addLine("Climbing")
                 deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
                 climbMotor.rawPower = climbingSpeed
                 deploymentMotor.rawPower = 0.0
                 deployingSpeed = 0.0
             }
             else {
-                opMode.addLine("Neither")
+                deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
                 deploymentMotor.rawPower = 0.0
                 deployingSpeed = 0.0
                 climbMotor.rawPower = 0.0
