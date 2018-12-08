@@ -4,11 +4,17 @@ import org.BeehiveRobotics.Library.Systems.MecanumDrive
 import org.BeehiveRobotics.Library.Util.BROpMode
 import org.BeehiveRobotics.Library.Sensors.REVColorSensor
 import com.qualcomm.robotcore.util.ElapsedTime
+import org.BeehiveRobotics.Library.Motors.Motor
 
-class Drive(opMode: BROpMode): MecanumDrive(opMode) {
+class Drive(opMode: BROpMode): MecanumDrive(opMode, gearRatio = 0.5) {
     val rightCS = REVColorSensor(opMode, "drcs")
     val leftCS = REVColorSensor(opMode, "dlcs")
     var showTelemetry = false
+
+    override fun init() {
+        super.init()
+        model = Motor.MotorModel.NEVEREST20
+    }
 
     fun lineLineUp() {
         val expectedValue = 0//who knows what this needs to be
@@ -20,21 +26,20 @@ class Drive(opMode: BROpMode): MecanumDrive(opMode) {
             super.drive(lHSV[1]*k - expectedValue, rHSV[1]*k - expectedValue)
         }
     }
-    override fun toString(): String {
-        return super.toString() + "\n" + 
-            "Left Color Sensor: " + "\n" + 
-            "\t" + "Red: " + leftCS.RGB()[0] + "\n" + 
-            "\t" + "Green: " + leftCS.RGB()[1] + "\n" + 
-            "\t" + "Blue: " + leftCS.RGB()[2] + "\n" + 
-            "\t" + "Hue: " + leftCS.HSV()[0] + "\n" + 
-            "\t" + "Saturation: " + leftCS.HSV()[1] + "\n" + 
-            "\t" + "Value: " + leftCS.HSV()[2] + "\n" + 
-            "Right Color Sensor: " + "\n" + 
-            "\t" + "Red: " + rightCS.RGB()[0] + "\n" + 
-            "\t" + "Green: " + rightCS.RGB()[1] + "\n" + 
-            "\t" + "Blue: " + rightCS.RGB()[2] + "\n" + 
-            "\t" + "Hue: " + rightCS.HSV()[0] + "\n" + 
-            "\t" + "Saturation: " + rightCS.HSV()[1] + "\n" + 
-            "\t" + "Value: " + rightCS.HSV()[2]
-    }
+    override fun toString(): String =
+        super.toString() + "\n" + 
+        "Left Color Sensor: " + "\n" + 
+        "\tRed: ${leftCS.RGB()[0]}\n" + 
+        "\tGreen: ${leftCS.RGB()[1]}\n" + 
+        "\tBlue: ${leftCS.RGB()[2]}\n" + 
+        "\tHue: ${leftCS.HSV()[0]}\n" + 
+        "\tSaturation: ${leftCS.HSV()[1]}\n" + 
+        "\tValue: ${leftCS.HSV()[2]}\n" + 
+        "Right Color Sensor: \n" + 
+        "\tRed: ${rightCS.RGB()[0]}\n" + 
+        "\tGreen: ${rightCS.RGB()[1]}\n" + 
+        "\tBlue: ${rightCS.RGB()[2]}\n" + 
+        "\tHue: ${rightCS.HSV()[0]}\n" + 
+        "\tSaturation: ${rightCS.HSV()[1]}\n" + 
+        "\tValue: ${rightCS.HSV()[2]}"
 }
