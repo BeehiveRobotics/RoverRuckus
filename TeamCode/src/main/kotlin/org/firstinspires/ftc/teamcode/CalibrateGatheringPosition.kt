@@ -13,12 +13,16 @@ class CalibrateGatheringPosition(): BROpMode(OpModeType.TeleOp) {
         robot.drive.driveLeftRight(controller1.leftStickX, controller1.leftStickY, controller1.rightStickX, controller1.rightStickY)
         robot.gathering.inOutMotor.rawPower = controller1.rightTrigger - controller1.leftTrigger
         if(controller1.aToggle) {
-            robot.gathering.toggleFlip()
+            if(robot.gathering.isUp) {
+                robot.gathering.down()
+            } else {
+                robot.gathering.up()
+            }
         } 
         if(controller1.bToggle) {
             robot.gathering.toggleGathering()
         }
-        if(controller1.dpadUpToggle) {
+        if(controller1.dpadUpToggle && robot.gathering.UP_POSITION <= 1.0) {
             robot.gathering.UP_POSITION += 0.01
         }
         if(controller1.dpadDownToggle && robot.gathering.UP_POSITION >= 0.0) {
