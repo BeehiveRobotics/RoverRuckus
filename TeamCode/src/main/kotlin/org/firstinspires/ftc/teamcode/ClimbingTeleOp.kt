@@ -9,7 +9,7 @@ class ClimbingTeleOp(): BROpMode(OpModeType.TeleOp) {
     override fun initialize() {
         robot.init()
     }
-    override fun firstStart() {
+    override fun onStartPressed() {
         robot.start()
     }
     override fun run() {

@@ -76,6 +76,7 @@ class ConceptTensorFlowObjectDetection(): BROpMode(BROpMode.OpModeType.TeleOp) {
             dashboard.addData("Number of gold minerals", allShapes.size / frames)
             dashboard.addData("Average X value", xTotal/frames)
             dashboard.addData("New minerals", newMineralCount-frames)
+            dashboard.update()
             lastMineralCount = allShapes.size
             // getUpdatedRecognitions() will return null if no new information is available since
             // the last time that call was made.
