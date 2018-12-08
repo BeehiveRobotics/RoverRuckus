@@ -30,18 +30,18 @@ class Lift(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
         deploymentMotor.rawPower = 0.0
     }
     override fun start() {
+        deploymentMotor.resetEncoder()
+        climbMotor.resetEncoder()
         val thread = Thread(this)
         thread.start()
     }
 
-    override fun toString(): String {
-        return "" + 
-            "Task: " + currentTask.toString() + "\n" + 
-            "Deploying Speed: " + deployingSpeed + "\n" + 
-            "Climbing Speed: " + climbingSpeed + "\n" + 
-            "Deploying Motor Speed: " + deploymentMotor.rawPower + "\n" + 
-            "Climbing Motor Speed: " + climbMotor.rawPower
-    }
+    override fun toString(): String =
+        "Task: ${currentTask.toString()}\n" + 
+        "Deploying Speed: $deployingSpeed\n" + 
+        "Climbing Speed: $climbingSpeed\n" + 
+        "Deploying Motor Speed: ${deploymentMotor.rawPower}\n" + 
+        "Climbing Motor Speed: ${climbMotor.rawPower}"
 
     override fun run() {
         while(opMode.opModeIsActive()) {
