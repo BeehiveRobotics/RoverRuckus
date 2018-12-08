@@ -9,12 +9,23 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
     internal lateinit var lift: Lift
     internal lateinit var deployment: Deployment
     internal lateinit var gathering: Gathering
+    internal lateinit var cv: CV
     private var showTelemetry = true
     
     fun land() {
-        lift.climbMotor.runToPosition(13800.0, -1.0)
-        lift.deploymentMotor.rawPower = 0.2
-        drive.strafeLeft(0.8, 8.0)
+        opMode.dashboard.showLine("Landing")
+        deployment.stow()
+        lift.deploymentMotor.rawPower = -0.16
+        lift.climbMotor.runToPosition(13600.0, -1.0)
+        lift.deploymentMotor.rawPower = -0.3
+        drive.strafeLeft(0.75, 2.0)
+        lift.deploymentMotor.rawPower = 0.0
+        opMode.dashboard.showLine("Done landing")
+    }
+
+    fun moveMineralsFromGatheringToDeploymentAndReadyDeployment() {
+        gathering.dump()
+        lift.deploymentMotor.runToPosition(4000.0, 1.0)
     }
     
     override fun init() {
@@ -26,6 +37,8 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
         deployment.init()
         gathering = Gathering(opMode)
         gathering.init()
+        cv = CV(opMode)
+        cv.init()
     }
     
     override fun start() {
@@ -52,8 +65,11 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
         get() = drive.isBusy || lift.isBusy || deployment.isBusy || gathering.isBusy
 
     override fun run() {
-        while(opMode.opModeIsActive() || showTelemetry) {
-            opMode.dashboard.addLine(drive.toString(), true)
+        while(opMode.opModeIsActive() && showTelemetry) {
+            opMode.dashboard.addLine(drive.toString())
+            opMode.dashboard.addLine(lift.toString())
+            opMode.dashboard.addLine(deployment.toString())
+            opMode.dashboard.addLine(gathering.toString())
         }
         Thread.currentThread().interrupt()
     }

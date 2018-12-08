@@ -12,5 +12,10 @@ class BlueCrater(): BROpMode(BROpMode.OpModeType.Autonomous) {
     override fun run() {
         robot.startTelemetry()
         robot.land()
+        robot.cv.startCV()
+        val goldMineralPosition = robot.cv.getGoldMineralPosition()
+        dashboard.addLine(goldMineralPosition.toString())
+        dashboard.update()
+        robot.cv.stopCV()
     }
 }
