@@ -74,6 +74,8 @@ class CV(private val opMode: BROpMode): RobotSystem(opMode) {
                         } else {
                             right++
                         }
+                    } else {
+                        right++
                     }
                 }
             }
