@@ -10,6 +10,6 @@ class CSTeleOp(): BROpMode(OpModeType.TeleOp) {
         robot.init()
     }
     override fun run() {
-        dashboard.addLine(robot.drive.toString(), true)
+        dashboard.addLine(robot.drive.toString())
     }
 }
