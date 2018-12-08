@@ -63,7 +63,7 @@ class ConceptTensorFlowObjectDetection(): BROpMode(BROpMode.OpModeType.TeleOp) {
             } else {
                 dashboard.addLine("No new minerals found")
             }
-            if(allShapes != null) for(shape in allShapes) {
+            for(shape in allShapes) {
                 val pos = shape.getLeft()
                 if(pos > highX) highX = pos
                 if(pos < lowX) lowX = pos

@@ -12,7 +12,7 @@ class MultiThreadTest: BROpMode(OpModeType.TeleOp) {
     }
     override fun run() {
         robot.drive.forward(1.0, 12.0, false)
-        dashboard.addData("Main Thread ID", Thread.currentThread().id.toString(), true)
+        dashboard.addData("Main Thread ID", Thread.currentThread().id.toString())
         robot.waitUntilNotBusy()
     }
 }
