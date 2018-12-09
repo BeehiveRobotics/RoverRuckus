@@ -10,15 +10,18 @@ class BlueCrater(): BROpMode(BROpMode.OpModeType.Autonomous) {
     override fun initialize() {
         robot.init()
     }
-    override fun run() {
-        robot.startTelemetry()
-        robot.land()
+    override fun onStartPressed() {
+        robot.start()
         robot.cv.startCV()
+    }
+    override fun run() {
+        robot.land()
+        //sleep(2000)
         val goldMineralPosition = robot.cv.getGoldMineralPosition()
         dashboard.addLine(goldMineralPosition.toString())
         dashboard.update()
         robot.cv.stopCV()
-        robot.drive.forward(0.6, 14.0)
+        robot.drive.forward(1.0, 14.0)
         when(goldMineralPosition) {
             GoldMineralPosition.LEFT -> {
                 robot.drive.strafeLeft(1.0, 16.0)
@@ -30,6 +33,19 @@ class BlueCrater(): BROpMode(BROpMode.OpModeType.Autonomous) {
                 robot.drive.strafeRight(1.0, 24.0)
             }
         }
-        robot.drive.forward(1.0, 12.0)
+        robot.drive.forward(1.0, 9.0)
+        robot.drive.backward(1.0, 9.0)
+        when(goldMineralPosition) {
+            GoldMineralPosition.LEFT -> {
+                robot.drive.strafeLeft(1.0, 18.0)
+            }
+            GoldMineralPosition.CENTER -> {
+                robot.drive.strafeLeft(1.0, 40.0)
+            }
+            GoldMineralPosition.RIGHT -> {
+                robot.drive.strafeLeft(1.0, 58.0)
+            }
+        }
+
     }
 }

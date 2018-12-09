@@ -10,14 +10,16 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
     internal lateinit var deployment: Deployment
     internal lateinit var gathering: Gathering
     internal lateinit var cv: CV
+    internal lateinit var teamMarker: TeamMarker
     private var showTelemetry = true
     
     fun land() {
         opMode.dashboard.showLine("Landing")
         deployment.stow()
-        lift.deploymentMotor.rawPower = -0.16
+        teamMarker.outOfTheWay()
+        lift.deploymentMotor.rawPower = -0.25
         lift.climbMotor.runToPosition(13600.0, -1.0)
-        lift.deploymentMotor.rawPower = -0.3
+        lift.deploymentMotor.rawPower = -0.275
         drive.strafeLeft(0.75, 2.0)
         lift.deploymentMotor.rawPower = 0.0
         opMode.dashboard.showLine("Done landing")
@@ -39,6 +41,8 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
         gathering.init()
         cv = CV(opMode)
         cv.init()
+        teamMarker = TeamMarker(opMode)
+        teamMarker.init()
     }
     
     override fun start() {
@@ -46,6 +50,8 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
         lift.start()
         deployment.start()
         gathering.start()
+        cv.start()
+        teamMarker.start()
         
     }
     fun startTelemetry() {
