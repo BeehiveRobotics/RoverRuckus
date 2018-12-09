@@ -25,15 +25,17 @@ class Lift(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
         climbMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
         climbMotor.rawPower = 0.0
         climbMotor.MIN_SPEED = 0.4
-        climbMotor.RAMPING_COEFFICIENT = 0.6
+        climbMotor.RAMPING_COEFFICIENT = 0.28
         deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
         deploymentMotor.rawPower = 0.0
     }
     override fun start() {
         deploymentMotor.resetEncoder()
         climbMotor.resetEncoder()
-        val thread = Thread(this)
-        thread.start()
+        if(opMode.opModeType == BROpMode.OpModeType.TeleOp) {
+            val thread = Thread(this)
+            thread.start()
+        }
     }
 
     override fun toString(): String =

@@ -8,13 +8,14 @@ class TestCV(): BROpMode(OpModeType.TeleOp) {
     private val robot = Robot(this)
     override fun initialize() {
         robot.init()
-    }
-    override fun onStartPressed() {
         robot.cv.startCV()
     }
+
     override fun run() {
         dashboard.addLine(robot.cv.getGoldMineralPosition().toString())
         dashboard.update()
     }
-    
+    override fun end() {
+        robot.cv.stopCV()
+    }
 }
