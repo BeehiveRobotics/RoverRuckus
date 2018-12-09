@@ -39,6 +39,11 @@ class CV(private val opMode: BROpMode): RobotSystem(opMode) {
         LEFT, CENTER, RIGHT, UNKNOWN
     }
 
+    enum class Tasks {
+        STARTCV, STOPCV, NONE
+    }
+    var task = Tasks.NONE
+
     override fun init() {
         val parameters = VuforiaLocalizer.Parameters()
         parameters.vuforiaLicenseKey = this.VUFORIA_KEY
@@ -53,34 +58,40 @@ class CV(private val opMode: BROpMode): RobotSystem(opMode) {
         tfod.activate()
     }
 
-    fun getGoldMineralPosition(framesToTest: Int = 30): GoldMineralPosition {
-        var position = GoldMineralPosition.UNKNOWN
+    fun getGoldMineralPosition(framesToTest: Int = 60): GoldMineralPosition {
         var left = 0
         var center = 0
-        var right = 0
         for(frame in 1..framesToTest) {
             val newShapes = tfod.getRecognitions()
             if(newShapes!=null) {
                 for(shape in newShapes) {
+                    val xPos = (shape.getLeft() + shape.getRight()) / 2
+                    val yPos = shape.getTop()
+                    val imageHeight = shape.getImageHeight()
+                    val imageWidth = shape.getImageWidth()
                     if(shape.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                        val xPos = (shape.getLeft() + shape.getRight()) / 2
-                        val yPos = shape.getTop()
-                        if(yPos>0.7*shape.getImageHeight()) {
-                            if(xPos>0.5*shape.getImageWidth()) {
-                                center++
+                        if(yPos>0.7*imageHeight) {
+                            if(xPos>0.5*imageWidth) {
+                                center++ //btw, center.inc() would be the exact same as doing center + 1 without assigning it to anything. the way to make that work would be center = center.inc()
                             } else {
                                 left++
                             }
-                        } else {
-                            right++
                         }
                     } else {
-                        right++
+                        if(shape.getLabel().equals(LABEL_SILVER_MINERAL)) {
+                            if(yPos>0.7*imageHeight) {
+                                if(xPos>0.5*imageWidth) {
+                                    center--
+                                } else {
+                                    left--
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
-        return if(right>left && right>center) GoldMineralPosition.RIGHT else if (center>left && center>right) GoldMineralPosition.CENTER else if(left>right && left>center) GoldMineralPosition.LEFT else GoldMineralPosition.UNKNOWN
+        return if (center-left > 5) GoldMineralPosition.CENTER else if(left-center > 5) GoldMineralPosition.LEFT else GoldMineralPosition.RIGHT
     }
     fun stopCV() {
         tfod.shutdown()
