@@ -47,12 +47,16 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     fun dump() {
         task = Tasks.DUMP
     }
+
     fun up() {
+        off()
         isUp = true
         setServoPositions(UP_POSITION)
     }
+    
     fun inBetween() {
-        isUp = true
+        off()
+        isUp = false
         setServoPositions(IN_BETWEEN_POSITION)
     }
 

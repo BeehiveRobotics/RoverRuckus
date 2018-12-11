@@ -72,7 +72,7 @@ class CV(private val opMode: BROpMode): RobotSystem(opMode) {
                     if(shape.getLabel().equals(LABEL_GOLD_MINERAL)) {
                         if(yPos>0.7*imageHeight) {
                             if(xPos>0.5*imageWidth) {
-                                center++ //btw, center.inc() would be the exact same as doing center + 1 without assigning it to anything. the way to make that work would be center = center.inc()
+                                center++
                             } else {
                                 left++
                             }

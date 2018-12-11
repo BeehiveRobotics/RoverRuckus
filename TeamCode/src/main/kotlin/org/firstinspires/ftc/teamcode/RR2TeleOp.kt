@@ -14,8 +14,11 @@ class RR2TeleOp(): BROpMode(OpModeType.TeleOp) {
     }
     override fun run() {
         //Drive
-        robot.drive.driveLeftRight(controller1.leftStickX, controller1.leftStickY, controller1.rightStickX, controller1.rightStickY)
-        
+        if     (controller1.dpadUp)    robot.drive.forward(0.4)
+        else if(controller1.dpadDown)  robot.drive.backward(0.4)
+        else if(controller1.dpadLeft)  robot.drive.strafeLeft(0.4)
+        else if(controller1.dpadRight) robot.drive.strafeRight(0.4) 
+        else                           robot.drive.driveLeftRight(controller1.leftStickX, controller1.leftStickY, controller1.rightStickX, controller1.rightStickY)
         //Gathering
         if (controller2.x) {
             robot.gathering.gatherBackwards()
@@ -27,19 +30,20 @@ class RR2TeleOp(): BROpMode(OpModeType.TeleOp) {
                 robot.gathering.off()
             }
         }
-        if(controller2.aToggle)           robot.gathering.down()
-        if(controller2.yToggle)           robot.gathering.inBetween()
-        if(controller2.rightBumperToggle) robot.gathering.dump()
+        if(controller2.a)                 robot.gathering.down()
+        if(controller2.y)                 robot.gathering.inBetween()
+        if(controller2.rightBumper)       robot.gathering.dump()
         if(controller2.leftBumper)        robot.gathering.up()
+        if(controller1.leftBumper)        robot.gathering.up()
         robot.gathering.inOutMotor.rawPower = controller2.leftTrigger - controller2.rightTrigger
         //Deployment
-        if(controller2.dpadUpToggle)      robot.deployment.reveal()
-        if(controller2.dpadDownToggle)    robot.deployment.stow()
-        if(controller2.dpadLeftToggle)    robot.deployment.left()
-        if(controller2.dpadRightToggle)   robot.deployment.right()
+        if(controller2.dpadUp)      robot.deployment.reveal()
+        if(controller2.dpadDown)    robot.deployment.stow()
+        if(controller2.dpadLeft)    robot.deployment.left()
+        if(controller2.dpadRight)   robot.deployment.right()
         //Lift
         robot.lift.deployingSpeed = -controller2.leftStickY
         robot.lift.climbingSpeed = -(controller1.leftTrigger - controller1.rightTrigger)
-
-    }
+        dashboard.addLine(robot.lift.toString())
+        }
 }

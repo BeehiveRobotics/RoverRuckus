@@ -10,7 +10,7 @@ class GatheringTeleOp(): BROpMode(OpModeType.TeleOp) {
         robot.init()
     }
     override fun run() {
-        robot.drive.driveLeftRight(controller1.leftStickX, controller1.leftStickY, controller1.rightStickX, controller1.rightStickY)
+        robot.drive.drive(controller1.leftStickX, controller1.leftStickY, controller1.rightStickX, controller1.rightStickY)
         robot.gathering.inOutMotor.rawPower = controller1.rightTrigger - controller1.leftTrigger
         if(controller1.aToggle) {
             robot.gathering.toggleFlip()
@@ -20,3 +20,18 @@ class GatheringTeleOp(): BROpMode(OpModeType.TeleOp) {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
