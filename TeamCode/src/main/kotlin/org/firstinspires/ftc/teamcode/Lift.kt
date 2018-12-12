@@ -21,6 +21,8 @@ class Lift(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     var deployingSpeed = 0.0
     var climbingSpeed = 0.0
 
+    private var deployMotorBrake = false
+
     override fun init() {
         climbMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
         climbMotor.rawPower = 0.0
@@ -48,13 +50,19 @@ class Lift(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     override fun run() {
         while(opMode.opModeIsActive()) {
             if(Math.abs(deployingSpeed) > Math.abs(climbingSpeed)) {
-                deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+                if(!deployMotorBrake) {
+                    deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+                    deployMotorBrake = true
+                }
                 deploymentMotor.rawPower = deployingSpeed
                 climbMotor.rawPower = 0.0
                 climbingSpeed = 0.0
             }
             else if(Math.abs(climbingSpeed) > Math.abs(deployingSpeed)) {
-                deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
+                if(deployMotorBrake) {
+                    deploymentMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
+                    deployMotorBrake = false
+                }
                 climbMotor.rawPower = climbingSpeed
                 deploymentMotor.rawPower = 0.0
                 deployingSpeed = 0.0
