@@ -18,10 +18,11 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     private val RIGHT_POSITION = 1.0
     private val MIDDLE_POSITION = 0.5
     private val LEFT_POSITION = 0.0
-    private val A_LITTLE_OFF_FROM_THE_MIDDLE_POSITION = 0.55
+    private val A_LITTLE_OFF_FROM_THE_MIDDLE_POSITION = 0.51
     private val OUT_OF_THE_WAY_FOR_LANDING_POSITION = 0.7
-    private var isOut = false
-    private var kickerPosition = A_LITTLE_OFF_FROM_THE_MIDDLE_POSITION
+    private var isUp = false
+    private val kickerPosition = A_LITTLE_OFF_FROM_THE_MIDDLE_POSITION
+    private val KICK_DELAY_TIME = 400L
     enum class Tasks {
         KICK_RIGHT, KICK_LEFT, REVEAL, NONE
     }
@@ -34,19 +35,18 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     }
     
     fun reveal() {
-        isOut = true
         task = Tasks.REVEAL
         val thread = Thread(this)
         thread.start()
     }
 
     fun stow() {
-        isOut = false
+        isUp = false
         setFlipPosition(STOWED_POSITION)
     }
 
     fun toggleOut() {
-        if(isOut) {
+        if(isUp) {
             stow()
         } else {
             reveal()
@@ -88,7 +88,7 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
 
     override fun toString(): String =
         "Kicker Position: ${if(kickerPosition==REVEALED_POSITION) "Up" else if(kickerPosition==STOWED_POSITION) "Stowed" else "Something else???"} \n" + 
-        "Deploying Position: ${if(isOut) "Out" else "In"}"
+        "Deploying Position: ${if(isUp) "Out" else "In"}"
 
 
     override fun run() {
@@ -99,18 +99,23 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
                 setKickerPosition(A_LITTLE_OFF_FROM_THE_MIDDLE_POSITION)
                 sleep(750)
                 setKickerPosition(MIDDLE_POSITION)
+                isUp = true
                 task = Tasks.NONE
             }
             Tasks.KICK_RIGHT -> {
-                setKickerPosition(RIGHT_POSITION)
-                sleep(600)
-                middle()
+                if(isUp) {
+                    setKickerPosition(RIGHT_POSITION)
+                    sleep(KICK_DELAY_TIME)
+                    middle()
+                }
                 task = Tasks.NONE
             }
             Tasks.KICK_LEFT -> {
-                setKickerPosition(LEFT_POSITION)
-                sleep(600)
-                middle()
+                if(isUp) {
+                    setKickerPosition(LEFT_POSITION)
+                    sleep(KICK_DELAY_TIME)
+                    middle()
+                }
                 task = Tasks.NONE
             }
         }
