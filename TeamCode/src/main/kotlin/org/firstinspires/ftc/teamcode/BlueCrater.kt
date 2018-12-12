@@ -16,11 +16,11 @@ class BlueCrater(): BROpMode(BROpMode.OpModeType.Autonomous) {
     }
     override fun run() {
         robot.land()
-        //sleep(2000)
         val goldMineralPosition = robot.cv.getGoldMineralPosition()
         dashboard.addLine(goldMineralPosition.toString())
         dashboard.update()
         robot.cv.stopCV()
+        robot.lift.deploymentMotor.runToPosition(1.0, 2000.0, false)
         robot.drive.forward(1.0, 14.0)
         when(goldMineralPosition) {
             GoldMineralPosition.LEFT -> {
@@ -37,15 +37,26 @@ class BlueCrater(): BROpMode(BROpMode.OpModeType.Autonomous) {
         robot.drive.backward(1.0, 9.0)
         when(goldMineralPosition) {
             GoldMineralPosition.LEFT -> {
-                robot.drive.strafeLeft(1.0, 18.0)
+                robot.drive.strafeLeft(1.0, 24.0)
             }
             GoldMineralPosition.CENTER -> {
-                robot.drive.strafeLeft(1.0, 40.0)
+                robot.drive.strafeLeft(1.0, 46.0)
             }
             GoldMineralPosition.RIGHT -> {
-                robot.drive.strafeLeft(1.0, 58.0)
+                robot.drive.strafeLeft(1.0, 64.0)
             }
         }
-
+        robot.drive.rightGyro(1.0, -135.0)
+        robot.drive.backward(0.8, 12.0)
+        robot.drive.forward(0.8, 3.0)
+        robot.drive.strafeRight(1.0, 56.0)
+        robot.teamMarker.down()
+        robot.drive.strafeLeft(1.0, 56.0, false)
+        sleep(500)
+        robot.teamMarker.up()
+        robot.waitUntilNotBusy()
+        robot.drive.(1.0, -45.0)
+        robot.gathering.inOutMotor.runForTime(-1.0, 750L)
+        robot.gathering.down()
     }
 }

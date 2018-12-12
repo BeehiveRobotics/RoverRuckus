@@ -14,6 +14,7 @@ class Drive(opMode: BROpMode): MecanumDrive(opMode, gearRatio = 0.5) {
     override fun init() {
         super.init()
         model = Motor.MotorModel.NEVEREST20
+        
     }
 
     fun lineLineUp() {
