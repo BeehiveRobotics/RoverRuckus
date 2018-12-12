@@ -18,16 +18,12 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
         deployment.stow()
         teamMarker.outOfTheWay()
         lift.deploymentMotor.rawPower = -0.25
-        lift.climbMotor.runToPosition(13600.0, -1.0)
+        lift.climbMotor.runToPosition(-1.0, 13600.0)
+        drive.leftForward(0.6, 0.5)
         lift.deploymentMotor.rawPower = -0.275
         drive.strafeLeft(0.75, 2.0)
         lift.deploymentMotor.rawPower = 0.0
         opMode.dashboard.showLine("Done landing")
-    }
-
-    fun moveMineralsFromGatheringToDeploymentAndReadyDeployment() {
-        gathering.dump()
-        lift.deploymentMotor.runToPosition(4000.0, 1.0)
     }
     
     override fun init() {
