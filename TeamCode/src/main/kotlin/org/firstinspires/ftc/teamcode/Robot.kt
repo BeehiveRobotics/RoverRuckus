@@ -23,7 +23,7 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
         drive.forward(0.5, 0.5)
         drive.leftForward(0.6, 1.0)
         lift.deploymentMotor.rawPower = -0.275
-        drive.strafeLeft(0.75, 3.0)
+        drive.strafeLeft(0.75, 3.1) //was 3.0
         drive.leftBackward(0.6, 1.0)
         lift.deploymentMotor.rawPower = 0.0
         opMode.dashboard.showLine("Done landing")

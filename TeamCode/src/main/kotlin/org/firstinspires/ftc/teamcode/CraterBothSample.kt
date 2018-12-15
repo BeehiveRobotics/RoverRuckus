@@ -51,28 +51,41 @@ class CraterBothSample(): BROpMode(BROpMode.OpModeType.Autonomous) {
         robot.drive.rightGyro(1.0, -135.0)
         robot.drive.backward(0.8, 12.0)
         robot.drive.forward(0.8, 1.5)
-        robot.drive.strafeRight(1.0, 56.0) //maybe???
-        robot.drive.backward(1.0, 4.0)
+        robot.drive.strafeRight(1.0, 60.0) //maybe???
+        //robot.drive.backward(1.0, 4.0)
         robot.teamMarker.down()
         when(goldMineralPosition) {
             GoldMineralPosition.LEFT -> {
-                robot.drive.forward(1.0, 65.0, false) //this one
-                sleep(500)
+                robot.drive.strafeLeft(1.0, 2.5)
                 robot.teamMarker.up()
+                robot.drive.forward(1.0, 85.0) //this one
+                sleep(500)
+                robot.gathering.inOutMotor.runForTime(-1.0, 500L)
+                robot.gathering.down()
+                robot.waitUntilNotBusy()
             }
             GoldMineralPosition.CENTER -> {
-                robot.drive.strafeLeft(1.0, 24.0, false) //and here
-                sleep(500)
-                robot.teamMarker.up()
+                robot.drive.strafeLeft(1.0, 17.0) //and here
                 robot.waitUntilNotBusy()
-                robot.drive.forward(1.0, 42.0)
+                robot.teamMarker.up()
+                robot.drive.forward(1.0, 22.0)
+                robot.drive.backward(1.0, 22.0)
+                robot.drive.leftGyro(1.0, -55.0)
+                robot.drive.forward(1.0, 55.0)
+                robot.gathering.inOutMotor.runForTime(-1.0, 500L)
+                robot.gathering.down()
+                robot.waitUntilNotBusy()
             }
             GoldMineralPosition.RIGHT -> {
-                robot.drive.strafeLeft(1.0, 40.0, false) //also here
-                sleep(500)
+                robot.drive.strafeLeft(1.0, 36.0) //also here
                 robot.teamMarker.up()
                 robot.waitUntilNotBusy()
-                robot.drive.forward(1.0, 24.0)
+                robot.drive.forward(1.0, 12.0)
+                robot.drive.leftGyro(1.0, -35.0)
+                robot.drive.forward(1.0, 45.0)
+                robot.gathering.inOutMotor.runForTime(-1.0, 200L)
+                robot.gathering.down()
+                robot.waitUntilNotBusy()
             }
         }
         
