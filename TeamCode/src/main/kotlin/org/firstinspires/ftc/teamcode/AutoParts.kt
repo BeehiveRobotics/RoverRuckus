@@ -2,20 +2,19 @@ package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import org.BeehiveRobotics.Library.Util.BROpMode
+import org.firstinspires.ftc.teamcode.CV.GoldMineralPosition
 
-//@Autonomous(name="Test CV", group="Test")
-class TestCV(): BROpMode(OpModeType.TeleOp) {
+//@Autonomous(name="Testing auto", group="RR2")
+class AuroParts(): BROpMode(BROpMode.OpModeType.Autonomous) {
     private val robot = Robot(this)
     override fun initialize() {
         robot.init()
+    }
+    override fun onStartPressed() {
+        robot.start()
         robot.cv.startCV()
-    }
-
-    override fun run() {
-        dashboard.addLine(robot.cv.getGoldMineralPosition().toString())
-        dashboard.update()
-    }
-    override fun end() {
         robot.cv.stopCV()
+    }
+    override fun run() {
     }
 }

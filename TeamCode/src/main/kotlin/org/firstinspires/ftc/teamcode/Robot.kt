@@ -16,14 +16,18 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
     fun land() {
         opMode.dashboard.showLine("Landing")
         deployment.stow()
+        gathering.up()
         teamMarker.outOfTheWay()
         lift.deploymentMotor.rawPower = -0.25
         lift.climbMotor.runToPosition(-1.0, 13600.0)
-        drive.leftForward(0.6, 0.5)
+        drive.forward(0.5, 0.5)
+        drive.leftForward(0.6, 1.0)
         lift.deploymentMotor.rawPower = -0.275
-        drive.strafeLeft(0.75, 2.0)
+        drive.strafeLeft(0.75, 3.0)
+        drive.leftBackward(0.6, 1.0)
         lift.deploymentMotor.rawPower = 0.0
         opMode.dashboard.showLine("Done landing")
+        sleep(250)
     }
     
     override fun init() {

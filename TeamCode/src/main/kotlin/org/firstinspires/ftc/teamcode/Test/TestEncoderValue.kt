@@ -4,7 +4,7 @@ import org.BeehiveRobotics.Library.Util.BROpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.Robot
 
-@TeleOp(name="Testing that one encoder thing", group="Test")
+//@TeleOp(name="Testing that one encoder thing", group="Test")
 class TestEncoderValue(): BROpMode(OpModeType.TeleOp) {
     private val robot = Robot(this)
     override fun initialize() {

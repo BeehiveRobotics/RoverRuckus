@@ -58,18 +58,18 @@ class CV(private val opMode: BROpMode): RobotSystem(opMode) {
         tfod.activate()
     }
 
-    fun getGoldMineralPosition(framesToTest: Int = 60): GoldMineralPosition {
+    fun getGoldMineralPosition(framesToTest: Int = 15): GoldMineralPosition {
         var left = 0
         var center = 0
-        for(frame in 1..framesToTest) {
-            val newShapes = tfod.getRecognitions()
-            if(newShapes!=null) {
-                for(shape in newShapes) {
+        for (frame in 1..framesToTest) {
+            val shapes = tfod.getRecognitions()
+            if (shapes.size!=0) {
+                for (shape in shapes) {
                     val xPos = (shape.getLeft() + shape.getRight()) / 2
                     val yPos = shape.getTop()
                     val imageHeight = shape.getImageHeight()
                     val imageWidth = shape.getImageWidth()
-                    if(shape.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                    if (shape.getLabel().equals(LABEL_GOLD_MINERAL)) {
                         if(yPos>0.7*imageHeight) {
                             if(xPos>0.5*imageWidth) {
                                 center++
@@ -78,20 +78,21 @@ class CV(private val opMode: BROpMode): RobotSystem(opMode) {
                             }
                         }
                     } else {
-                        if(shape.getLabel().equals(LABEL_SILVER_MINERAL)) {
-                            if(yPos>0.7*imageHeight) {
-                                if(xPos>0.5*imageWidth) {
-                                    center--
-                                } else {
-                                    left--
-                                }
+                        if (shape.getLabel().equals(LABEL_SILVER_MINERAL)) {
+                            if (yPos>0.7*imageHeight) {
+                                if (xPos>0.5*imageWidth) if (center > 0) center--
+                                else if                     (left > 0) left--
                             }
                         }
                     }
                 }
             }
+            sleep(35L)
         }
-        return if (center-left > 5) GoldMineralPosition.CENTER else if(left-center > 5) GoldMineralPosition.LEFT else GoldMineralPosition.RIGHT
+        opMode.dashboard.addLine("Left confidence: $left")
+        opMode.dashboard.addLine("Center confidence: $center")
+        opMode.dashboard.update()
+        return if (center > left) GoldMineralPosition.CENTER else if (left > center) GoldMineralPosition.LEFT else GoldMineralPosition.RIGHT
     }
     fun stopCV() {
         tfod.shutdown()

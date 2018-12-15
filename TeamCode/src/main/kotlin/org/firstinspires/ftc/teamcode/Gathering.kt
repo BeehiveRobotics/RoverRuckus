@@ -16,7 +16,7 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     private val IN_BETWEEN_POSITION = 0.5
     var gatherMotorSpeed = 0.0
     var isOn = false
-    var isUp = true
+    var isUp = false
     enum class Tasks {
         DUMP, NONE
     }
