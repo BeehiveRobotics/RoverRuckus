@@ -11,21 +11,29 @@ class Lift(private val opMode: BROpMode): RobotSystem(opMode) {
         CLIMBING, DEPLOYING, NEITHER
     }
     val lockServo = Servo(opMode, "lls")
-    val leftMotor = Servo(opMode, "llm")
-    val rightMotor = Servo(opMode, "lrm")
+    val leftMotor = Motor(opMode, "llm")
+    val rightMotor = Motor(opMode, "lrm")
     init {
-        leftMotor.direction = com.qualcomm.robotcore.hardware.DcMotor.Direction.REVERSE
+        leftMotor.direction = com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.REVERSE
+        leftMotor.rampingType = Motor.RampingType.Piecewise
+        rightMotor.rampingType = Motor.RampingType.Piecewise
     }
-    fun move(speed: Double) {
-        leftMotor.power = 
-    }
-    fun move(speed: Double, time: Long) {
+    var power: Double
+        set(value) {
+            leftMotor.power = value
+            rightMotor.power = value
+        }
+        get() = leftMotor.power
 
+    fun move(speed: Double, time: Long, waitForCompletion: Boolean = true) {
+        leftMotor.runForTime(speed, time, false)
+        rightMotor.runForTime(speed, time, waitForCompletion)
     }
 
-    fun move(speed: Double, distance: Double) {
-
+    fun runToPosition(speed: Double, position: Double, waitForCompletion: Boolean = true) {
+        leftMotor.runToPosition(speed, position, false)
+        rightMotor.runToPosition(speed, position, waitForCompletion)
     }
-    isBusy 
+    override var isBusy = false
         get() = leftMotor.isBusy || rightMotor.isBusy
 }

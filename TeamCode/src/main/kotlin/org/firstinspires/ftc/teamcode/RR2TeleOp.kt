@@ -35,15 +35,14 @@ class RR2TeleOp(): BROpMode(OpModeType.TeleOp) {
         if(controller2.rightBumper)       robot.gathering.dump()
         if(controller2.leftBumper)        robot.gathering.up()
         if(controller1.leftBumper)        robot.gathering.up()
-        robot.gathering.inOutMotor.rawPower = controller2.leftTrigger - controller2.rightTrigger
+        robot.gathering.inOutMotor.power = controller2.leftTrigger - controller2.rightTrigger
         //Deployment
         if(controller2.dpadUp)      robot.deployment.reveal()
         if(controller2.dpadDown)    robot.deployment.stow()
         if(controller2.dpadLeft)    robot.deployment.left()
         if(controller2.dpadRight)   robot.deployment.right()
         //Lift
-        robot.lift.deployingSpeed = -controller2.leftStickY
-        robot.lift.climbingSpeed = -(controller1.leftTrigger - controller1.rightTrigger)
+        robot.lift.power = controller2.leftStickY - (controller1.leftTrigger - controller1.rightTrigger)
         dashboard.addLine(robot.lift.toString())
-        }
+    }
 }

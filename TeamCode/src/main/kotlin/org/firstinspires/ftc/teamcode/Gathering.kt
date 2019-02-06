@@ -29,6 +29,8 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
 
     override fun init() {
         rightServo.direction = Direction.REVERSE
+        inOutMotor.rampingType = Motor.RampingType.None
+        gatherMotor.rampingType = Motor.RampingType.None
     }
 
     fun toggleFlip() {
@@ -93,7 +95,7 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     override fun run() {
         while(opMode.opModeIsActive()) {
             if(isUp) gatherMotorSpeed = 0.0
-            gatherMotor.rawPower = gatherMotorSpeed
+            gatherMotor.power = gatherMotorSpeed
             when(task) {
                 Tasks.DUMP -> {
                     isUp = true

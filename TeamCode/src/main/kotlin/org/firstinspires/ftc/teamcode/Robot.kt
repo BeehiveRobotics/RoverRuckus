@@ -13,19 +13,12 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
     internal lateinit var teamMarker: TeamMarker
     private var showTelemetry = true
     
-    fun land() {
+    fun land() { //NEEDS CHANGED FOR NEW HOOK
         opMode.dashboard.showLine("Landing")
         deployment.stow()
         gathering.up()
         teamMarker.outOfTheWay()
-        lift.deploymentMotor.rawPower = -0.25
-        lift.climbMotor.runToPosition(-1.0, 13600.0)
-        drive.forward(0.5, 0.5)
-        drive.leftForward(0.6, 1.0)
-        lift.deploymentMotor.rawPower = -0.275
-        drive.strafeLeft(0.75, 3.1) //was 3.0
-        drive.leftBackward(0.6, 1.0)
-        lift.deploymentMotor.rawPower = 0.0
+        lift.runToPosition(-1.0, 13600.0) //DEFINTELY WRONG
         opMode.dashboard.showLine("Done landing")
         sleep(250)
     }

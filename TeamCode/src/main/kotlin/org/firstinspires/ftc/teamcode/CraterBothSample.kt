@@ -22,7 +22,7 @@ class CraterBothSample(): BROpMode(BROpMode.OpModeType.Autonomous) {
         robot.cv.stopCV()
         robot.drive.forward(1.0, 14.0, false)
         sleep(500)
-        robot.lift.deploymentMotor.runToPosition(1.0, 2000.0, false)
+        robot.lift.runToPosition(1.0, 2000.0, false)
         robot.waitUntilNotBusy()
         when(goldMineralPosition) {
             GoldMineralPosition.LEFT -> {
