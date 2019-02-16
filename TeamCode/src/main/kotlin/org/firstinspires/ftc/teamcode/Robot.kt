@@ -13,14 +13,17 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
     internal lateinit var teamMarker: TeamMarker
     private var showTelemetry = true
     
-    fun land() { //NEEDS CHANGED FOR NEW HOOK
+    fun land() { 
         opMode.dashboard.showLine("Landing")
         deployment.stow()
-        gathering.up()
+        //gathering.up()
         teamMarker.outOfTheWay()
-        lift.runToPosition(-1.0, 13600.0) //DEFINTELY WRONG
+        lift.unlock()
+        lift.runForTime(-1.0, 250L)
+        lift.runToPosition(1.0, 2500.0) 
+        lift.runForTime(1.0, 100L)
         opMode.dashboard.showLine("Done landing")
-        sleep(250)
+        sleep(1000)
     }
     
     override fun init() {

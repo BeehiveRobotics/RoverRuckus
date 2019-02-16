@@ -30,17 +30,17 @@ class RR2TeleOp(): BROpMode(OpModeType.TeleOp) {
                 robot.gathering.off()
             }
         }
-        if(controller2.a)                 robot.gathering.down()
-        if(controller2.y)                 robot.gathering.inBetween()
-        if(controller2.rightBumper)       robot.gathering.dump()
-        if(controller2.leftBumper)        robot.gathering.up()
-        if(controller1.leftBumper)        robot.gathering.up()
+        if(controller2.aToggle)                 robot.gathering.down()
+        if(controller2.yToggle)                 robot.gathering.inBetween()
+        if(controller2.rightBumperToggle)       robot.gathering.dump()
+        if(controller2.leftBumperToggle)        robot.gathering.up()
+        if(controller1.leftBumperToggle)        robot.gathering.up()
         robot.gathering.inOutMotor.power = controller2.leftTrigger - controller2.rightTrigger
         //Deployment
-        if(controller2.dpadUp)      robot.deployment.reveal()
-        if(controller2.dpadDown)    robot.deployment.stow()
-        if(controller2.dpadLeft)    robot.deployment.left()
-        if(controller2.dpadRight)   robot.deployment.right()
+        if(controller2.dpadUpToggle)      robot.deployment.reveal()
+        if(controller2.dpadDownToggle)    robot.deployment.stow()
+        if(controller2.dpadLeftToggle)    robot.deployment.knock()
+        if(controller2.dpadRightToggle)   robot.deployment.knock()
         //Lift
         robot.lift.power = controller2.leftStickY - (controller1.leftTrigger - controller1.rightTrigger)
         dashboard.addLine(robot.lift.toString())
