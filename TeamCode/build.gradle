@@ -16,14 +16,16 @@
 apply from: '../build.common.gradle'
 apply plugin: 'kotlin-android'
 
-android {
-    buildToolsVersion '27.0.3'
-}
 repositories {
     mavenCentral()
+    google()
 }
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     //implementation project(':DogeCV')
     //implementation project(':openCVLibrary3')
+}
+
+android {
+    buildToolsVersion '28.0.3'
 }
