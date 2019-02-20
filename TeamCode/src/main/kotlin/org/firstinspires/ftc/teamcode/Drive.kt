@@ -11,5 +11,12 @@ class Drive(opMode: BROpMode): MecanumDrive(opMode, gearRatio = 1.0) {
         super.init()
         model = Motor.MotorModel.NEVEREST20
         super.MIN_SPEED = 0.25
+        RAMP_CLICKS_PROPORTION = 1.0
+        MAX_NO_SLIP_SPEED = 0.4
+        if(opMode.opModeType == BROpMode.OpModeType.TeleOp) {
+            setRampingTypes(Motor.RampingType.None)
+        } else {
+            setRampingTypes(Motor.RampingType.Piecewise)
+        }
     }
 }
