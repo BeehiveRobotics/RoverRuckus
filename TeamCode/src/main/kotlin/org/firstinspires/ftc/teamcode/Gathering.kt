@@ -11,9 +11,10 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     val inOutMotor = Motor(opMode, "giom")
     val rightServo = Servo(opMode, "grs")
     val leftServo = Servo(opMode, "gls")
-    var UP_POSITION = 0.24
+    var UP_POSITION = 0.0
+    var DUMP_POSITION = 0.24
     private val DOWN_POSITION = 1.0
-    private val IN_BETWEEN_POSITION = 0.5
+    private val IN_BETWEEN_POSITION = 0.64
     var gatherMotorSpeed = 0.0
     var isOn = false
     var isUp = false
@@ -98,9 +99,8 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
             gatherMotor.power = gatherMotorSpeed
             when(task) {
                 Tasks.DUMP -> {
-                    isUp = true
-                    setServoPositions(UP_POSITION)
-                    sleep(1000)
+                    setServoPositions(DUMP_POSITION)
+                    sleep(500L)
                     inBetween()
                     task = Tasks.NONE
                 }
