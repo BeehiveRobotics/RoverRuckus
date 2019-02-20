@@ -22,8 +22,10 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
         lift.runForTime(-1.0, 250L)
         lift.runToPosition(1.0, 2500.0) 
         lift.runForTime(1.0, 100L)
+        drive.forward(0.3, 1.0)
+        drive.spinLeft(0.3, 1.0)
         opMode.dashboard.showLine("Done landing")
-        sleep(1000)
+
     }
     
     override fun init() {
