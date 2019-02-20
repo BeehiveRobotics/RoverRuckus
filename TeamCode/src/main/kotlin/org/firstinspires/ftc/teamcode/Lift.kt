@@ -15,20 +15,20 @@ class Lift(private val opMode: BROpMode): RobotSystem(opMode) {
     val rightMotor = Motor(opMode, "lrm")
 
     val LOCK_POSITION = 0.0
-    val UNLOCK_POSITION = 1.0
+    val UNLOCK_POSITION = 0.85
 
     init {
         leftMotor.direction = com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.REVERSE
-        leftMotor.rampingType = Motor.RampingType.LinearDown
-        rightMotor.rampingType = Motor.RampingType.LinearDown
+        leftMotor.rampingType = Motor.RampingType.None
+        rightMotor.rampingType = Motor.RampingType.None
         
     }
-    var power: Double
+    var power: Double = 0.0
         set(value) {
             leftMotor.power = value
             rightMotor.power = value
+            field = value
         }
-        get() = leftMotor.power
 
     fun runForTime(speed: Double, time: Long, waitForCompletion: Boolean = true) {
         leftMotor.runForTime(speed, time, false)
@@ -37,6 +37,7 @@ class Lift(private val opMode: BROpMode): RobotSystem(opMode) {
 
     fun runToPosition(speed: Double, position: Double, waitForCompletion: Boolean = true) {
         leftMotor.runToPosition(speed, position, false)
+        opMode.dashboard.showLine("tgh")
         rightMotor.runToPosition(speed, position, waitForCompletion)
     }
 
