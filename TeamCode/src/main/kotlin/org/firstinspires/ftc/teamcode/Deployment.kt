@@ -15,7 +15,7 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     val topCS = REVColorSensor(opMode, "dtcs")
     val bottomCS = REVColorSensor(opMode, "dbcs")
     private val REVEALED_POSITION = 0.0
-    private val STOWED_POSITION = 0.65
+    private val STOWED_POSITION = 1.0
     private val UP_POSITION = 0.8
     private val RIGHT_POSITION = 0.75
     private val MIDDLE_POSITION = 0.5
@@ -24,7 +24,7 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     private val OUT_OF_THE_WAY_FOR_LANDING_POSITION = 0.7
     private var isUp = false
     private val kickerPosition = A_LITTLE_OFF_FROM_THE_MIDDLE_POSITION
-    private val KICK_DELAY_TIME = 400L
+    private val KICK_DELAY_TIME = 500L
     private val COLOR_SENSOR_THRESHOLD = 0.35
     enum class Tasks {
         KICK_RIGHT_RIGHT, KICK_LEFT_LEFT, KICK_LEFT_RIGHT, KICK_RIGHT_LEFT, REVEAL, NONE
@@ -35,8 +35,8 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     private var task = Tasks.NONE
     internal var flipPosition: Double = STOWED_POSITION
         internal set(value) {
-            rightFlipServo.position = value + 0.1
-            leftFlipServo.position = value + 0.1
+            rightFlipServo.position = value
+            leftFlipServo.position = value
             balanceServo.position = value
             field = value
         }
@@ -52,8 +52,8 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
 
     override fun init() {
         rightFlipServo.direction = Servo.Direction.REVERSE
-        balanceServo.speed = 0.7
         balanceServo.direction = Servo.Direction.REVERSE
+        balanceServo.speed = 0.002
     }
     
     fun reveal() {
@@ -135,9 +135,9 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     }
 
     private fun setFlipPosition(position: Double) {
-        rightFlipServo.position = position + 0.35
-        leftFlipServo.position = position + 0.35
-        balanceServo.position = (position + 0.35) * 0.85
+        rightFlipServo.position = position
+        leftFlipServo.position = position
+        balanceServo.position = position
     }
     //Fix toString()
     override fun toString(): String =
@@ -149,6 +149,9 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
         when(task) {
             Tasks.REVEAL -> {
                 setFlipPosition(REVEALED_POSITION)
+                balanceServo.position = 0.7
+                sleep(750)
+                balanceServo.position = REVEALED_POSITION
                 isUp = true
                 task = Tasks.NONE
             }
