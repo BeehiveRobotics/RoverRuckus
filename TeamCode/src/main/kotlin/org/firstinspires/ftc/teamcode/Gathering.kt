@@ -73,15 +73,16 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
 
     fun on() {
         isOn = true
-        gatherMotorSpeed = 1.0
+        gatherMotor.power = 1.0
     }
 
     fun off() {
         isOn = false
-        gatherMotorSpeed = 0.0
+        gatherMotor.power = 0.0
     }
     fun gatherBackwards() {
-        gatherMotorSpeed = -1.0
+        isOn = true
+        gatherMotor.power = -1.0
     }
 
     private fun setServoPositions(position: Double) {
@@ -95,12 +96,10 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
         
     override fun run() {
         while(opMode.opModeIsActive()) {
-            if(isUp) gatherMotorSpeed = 0.0
-            gatherMotor.power = gatherMotorSpeed
             when(task) {
                 Tasks.DUMP -> {
                     setServoPositions(DUMP_POSITION)
-                    sleep(500L)
+                    sleep(950L)
                     inBetween()
                     task = Tasks.NONE
                 }

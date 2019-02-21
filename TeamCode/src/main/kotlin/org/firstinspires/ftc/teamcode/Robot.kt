@@ -13,6 +13,9 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
     internal lateinit var teamMarker: TeamMarker
     private var showTelemetry = true
     
+    enum class Tasks {
+        DeploymentUp, DeploymentDown, None
+    }
     fun land() { 
         opMode.dashboard.showLine("Landing")
         deployment.stow()
@@ -69,13 +72,18 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
         get() = drive.isBusy || lift.isBusy || deployment.isBusy || gathering.isBusy
 
     override fun run() {
-        while(opMode.opModeIsActive() && showTelemetry) {
-            opMode.dashboard.addLine(drive.toString())
-            opMode.dashboard.addLine(lift.toString())
-            opMode.dashboard.addLine(deployment.toString())
-            opMode.dashboard.addLine(gathering.toString())
+        while(opMode.opModeIsActive()) {
+            when(task) {
+                Tasks.DeploymentUp -> {
+                    lift.runForTime(1.0, 1250L)
+                    deployment.reveal()
+                }   
+                Tasks.DeploymentDown -> {
+                    deployment.stow()
+                    lift.runForTime(1.0, 1250L)
+                }
+            }
         }
-        Thread.currentThread().interrupt()
     }
 
 }
