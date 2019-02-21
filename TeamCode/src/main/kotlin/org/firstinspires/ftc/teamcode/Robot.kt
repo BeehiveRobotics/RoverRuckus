@@ -11,11 +11,11 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
     internal lateinit var gathering: Gathering
     internal lateinit var cv: CV
     internal lateinit var teamMarker: TeamMarker
-    private var showTelemetry = true
     
     enum class Tasks {
         DeploymentUp, DeploymentDown, None
     }
+    var task = Tasks.None
     fun land() { 
         opMode.dashboard.showLine("Landing")
         deployment.stow()
@@ -53,15 +53,8 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
         gathering.start()
         cv.start()
         teamMarker.start()
-        
-    }
-    fun startTelemetry() {
-        showTelemetry = true
         val thread = Thread(this)
         thread.start()
-    }
-    fun stopTelemetry() {
-        showTelemetry = false
     }
 
     override fun waitUntilNotBusy() {
@@ -71,19 +64,15 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
         private set
         get() = drive.isBusy || lift.isBusy || deployment.isBusy || gathering.isBusy
 
+    fun deploymentDown() {
+        task = Tasks.DeploymentDown
+    }
+    fun deploymentUp() {
+        task = Tasks.DeploymentUp
+    }
+
     override fun run() {
-        while(opMode.opModeIsActive()) {
-            when(task) {
-                Tasks.DeploymentUp -> {
-                    lift.runForTime(1.0, 1250L)
-                    deployment.reveal()
-                }   
-                Tasks.DeploymentDown -> {
-                    deployment.stow()
-                    lift.runForTime(1.0, 1250L)
-                }
-            }
-        }
+        
     }
 
 }
