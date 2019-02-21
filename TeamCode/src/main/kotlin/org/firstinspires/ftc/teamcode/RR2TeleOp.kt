@@ -22,12 +22,11 @@ class RR2TeleOp(): BROpMode(OpModeType.TeleOp) {
         //Gathering
         if (controller2.x) {
             robot.gathering.gatherBackwards()
-        } else {
+        }
+        else {
             if(controller2.bToggle) {
-                robot.gathering.toggleGathering()
-            }
-            if(!robot.gathering.isOn) {
-                robot.gathering.off()
+                if(robot.gathering.isOn) robot.gathering.off()
+                else                       robot.gathering.on()
             }
         }
         if(controller2.aToggle)                 robot.gathering.down()
