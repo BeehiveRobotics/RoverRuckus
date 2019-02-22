@@ -27,10 +27,10 @@ class CraterBothSample(): BROpMode(BROpMode.OpModeType.Autonomous) {
         when(goldMineralPosition) {
             GoldMineralPosition.LEFT ->   robot.drive.strafeLeft(0.7, 16.0)
             GoldMineralPosition.CENTER -> robot.drive.strafeRight(0.4, 4.0)
-            GoldMineralPosition.RIGHT ->  robot.drive.strafeRight(0.7, 16.0)
+            GoldMineralPosition.RIGHT ->  robot.drive.strafeRight(0.7, 18.0)
         }
         robot.drive.forward(0.75, 14.0)   
-        robot.drive.backward(0.75, 7.0)
+        robot.drive.backward(0.75, 9.0)
         when(goldMineralPosition) {
             GoldMineralPosition.LEFT ->   robot.drive.strafeLeft(0.75, 24.0)
             GoldMineralPosition.CENTER -> robot.drive.strafeLeft(0.75, 50.0)
@@ -38,13 +38,13 @@ class CraterBothSample(): BROpMode(BROpMode.OpModeType.Autonomous) {
         }
         robot.drive.spinLeft(0.7, 10.0)
         robot.drive.forward(0.6)
-        sleep(750L)
+        sleep(500L)
         robot.drive.stopMotors()
         robot.drive.backward(0.8, 1.0)
         robot.waitUntilNotBusy()
         when(goldMineralPosition) {
             GoldMineralPosition.RIGHT -> {
-                robot.drive.strafeLeft(0.85, 42.0)
+                robot.drive.strafeLeft(0.85, 48.0)
                 robot.teamMarker.down()
                 robot.drive.spinLeft(1.0, 1.5)
                 robot.drive.strafeRight(0.85, 20.0, waitForCompletion = false)
@@ -55,48 +55,38 @@ class CraterBothSample(): BROpMode(BROpMode.OpModeType.Autonomous) {
                 robot.drive.forward(0.5, 10.0)
                 robot.drive.spinRight(1.0, 18.0)
                 robot.drive.forward(0.85, 50.0, waitForCompletion = false)
-                robot.gathering.inBetween()
-                sleep(350)
-                robot.gathering.inOutMotor.runForTime(-1.0, 500L)
-                robot.gathering.down()
-                robot.waitUntilNotBusy()
             }
             GoldMineralPosition.CENTER -> {
-                robot.drive.strafeLeft(0.85, 42.0)
+                robot.drive.strafeLeft(0.85, 55.0)
                 robot.teamMarker.down()
                 robot.drive.spinLeft(1.0, 1.5)
-                robot.drive.strafeRight(0.85, 10.0, waitForCompletion=false)
+                robot.drive.strafeRight(0.75, 2.0, waitForCompletion = false)
                 sleep(500)
                 robot.teamMarker.up()
-                robot.waitUntilNotBusy()
                 robot.drive.backward(0.5, 20.0)
                 robot.drive.forward(0.5, 20.0)
                 robot.drive.spinRight(1.0, 18.0)
-                robot.drive.forward(0.85, 59.0, waitForCompletion = false)
-                robot.gathering.inBetween()
-                sleep(350)
-                robot.gathering.inOutMotor.runForTime(-1.0, 500L)
-                robot.gathering.down()
-                robot.waitUntilNotBusy()
+                robot.drive.forward(0.85, 55.0, waitForCompletion = false)
             }
             GoldMineralPosition.LEFT -> {
-                robot.drive.strafeLeft(0.85, 52.0)
+                robot.drive.strafeLeft(0.85, 60.0)
                 robot.teamMarker.down()
                 robot.drive.spinLeft(1.0, 1.5)
-                robot.drive.strafeRight(0.85, 5.0, waitForCompletion=false)
+                robot.drive.strafeRight(0.75, 2.0, waitForCompletion = false)
                 sleep(500)
                 robot.teamMarker.up()
-                robot.waitUntilNotBusy()
                 robot.drive.backward(0.5, 33.0)
                 robot.drive.forward(0.5, 33.0)
                 robot.drive.spinRight(1.0, 18.0)
-                robot.drive.forward(0.85, 64.0, waitForCompletion = false)
-                robot.gathering.inBetween()
-                sleep(350)
-                robot.gathering.inOutMotor.runForTime(-1.0, 500L)
-                robot.gathering.down()
-                robot.waitUntilNotBusy()
+                robot.drive.forward(0.85, 63.0, waitForCompletion = false)
             }
         }
+        /*
+        robot.gathering.inBetween()
+        sleep(350)
+        robot.gathering.inOutMotor.runForTime(-1.0, 500L)
+        robot.gathering.down()
+        */
+        robot.waitUntilNotBusy()
     }
 }
