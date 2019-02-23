@@ -80,7 +80,7 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
         isOn = false
         gatherMotor.power = 0.0
     }
-    fun gatherBackwards() {
+    fun eject() {
         isOn = true
         gatherMotor.power = -1.0
     }

@@ -21,11 +21,11 @@ class RR2TeleOp(): BROpMode(OpModeType.TeleOp) {
         else                           robot.drive.driveLeftRight(controller1.leftStickX, controller1.leftStickY, controller1.rightStickX, controller1.rightStickY)
         //Gathering
         if (controller2.x) {
-            robot.gathering.gatherBackwards()
+            robot.gathering.eject()
         }
         else {
             if(controller2.bToggle) {
-                if(robot.gathering.isOn) robot.gathering.off()
+                if(robot.gathering.isOn)   robot.gathering.off()
                 else                       robot.gathering.on()
             }
         }
@@ -42,6 +42,8 @@ class RR2TeleOp(): BROpMode(OpModeType.TeleOp) {
         if(controller2.dpadRightToggle)   robot.deployment.knock()
         //Lift
         robot.lift.power = controller2.leftStickY - (controller1.leftTrigger - controller1.rightTrigger)
-        dashboard.addLine(robot.lift.toString())
+        if(controller1.aToggle) robot.lift.lock()
+        if(controller1.bToggle) robot.lift.unlock()
+
     }
 }

@@ -19,7 +19,6 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
     fun land() { 
         opMode.dashboard.showLine("Landing")
         deployment.stow()
-        //gathering.up()
         teamMarker.outOfTheWay()
         lift.unlock()
         lift.runForTime(-1.0, 250L)

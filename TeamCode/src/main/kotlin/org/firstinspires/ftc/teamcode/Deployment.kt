@@ -96,7 +96,7 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
             }
         }
     }
-
+    
     fun up() {
         setFlipPosition(UP_POSITION)
     }
