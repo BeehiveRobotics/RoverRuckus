@@ -81,12 +81,10 @@ class CraterBothSample(): BROpMode(BROpMode.OpModeType.Autonomous) {
                 robot.drive.forward(0.85, 63.0, waitForCompletion = false)
             }
         }
-        /*
         robot.gathering.inBetween()
         sleep(350)
         robot.gathering.inOutMotor.runForTime(-1.0, 500L)
         robot.gathering.down()
-        */
         robot.waitUntilNotBusy()
     }
 }
