@@ -21,7 +21,7 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
         deployment.stow()
         teamMarker.outOfTheWay()
         lift.unlock()
-        lift.runForTime(-1.0, 1000)
+        lift.runForTime(-1.0, 1000L)
         lift.runToPosition(1.0, 2500.0) 
         lift.runForTime(1.0, 100L)
         drive.forward(0.3, 1.0)

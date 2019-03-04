@@ -29,7 +29,7 @@ class DepotNormal(): BROpMode(BROpMode.OpModeType.Autonomous) {
             GoldMineralPosition.RIGHT ->  robot.drive.strafeRight(0.7, 16.0)
         }
         robot.drive.forward(0.75, 14.0)   
-        robot.drive.backward(0.75, 8.0)
+        robot.drive.backward(0.75, 9.0)
         when(goldMineralPosition) {
             GoldMineralPosition.LEFT ->   robot.drive.strafeLeft(0.75, 24.0)
             GoldMineralPosition.CENTER -> robot.drive.strafeLeft(0.75, 50.0)
