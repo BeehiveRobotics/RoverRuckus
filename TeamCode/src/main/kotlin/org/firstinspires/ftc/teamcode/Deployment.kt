@@ -14,7 +14,7 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     private val balanceServo = BRServo(opMode, "dbs")
     val topCS = REVColorSensor(opMode, "dtcs")
     val bottomCS = REVColorSensor(opMode, "dbcs")
-    private val REVEALED_POSITION = 0.0
+    private val REVEALED_POSITION = 0.2
     private val STOWED_POSITION = 1.0
     private val UP_POSITION = 0.8
     private val RIGHT_POSITION = 0.75
