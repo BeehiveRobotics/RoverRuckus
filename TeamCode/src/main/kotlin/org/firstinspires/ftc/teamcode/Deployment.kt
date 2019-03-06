@@ -14,7 +14,7 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     private val balanceServo = BRServo(opMode, "dbs")
     val topCS = REVColorSensor(opMode, "dtcs")
     val bottomCS = REVColorSensor(opMode, "dbcs")
-    private val REVEALED_POSITION = 0.2
+    private val REVEALED_POSITION = 0.15
     private val STOWED_POSITION = 1.0
     private val UP_POSITION = 0.8
     private val RIGHT_POSITION = 0.75
@@ -27,10 +27,10 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     private val KICK_DELAY_TIME = 500L
     private val COLOR_SENSOR_THRESHOLD = 0.35
     enum class Tasks {
-        KICK_RIGHT_RIGHT, KICK_LEFT_LEFT, KICK_LEFT_RIGHT, KICK_RIGHT_LEFT, REVEAL, NONE
+        KICK_RIGHT_RIGHT, KICK_LEFT_LEFT, KICK_LEFT_RIGHT, KICK_RIGHT_LEFT, REVEAL, PURGE, NONE
     }
     enum class KickDirection {
-        RIGHT, LEFT
+        RIGHT, LEFT, UNKNOWN
     }
     private var task = Tasks.NONE
     internal var flipPosition: Double = STOWED_POSITION
@@ -77,10 +77,21 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     fun knock() {
         val topCSRGB = topCS.RGB()
         val bottomCSRGB = bottomCS.RGB()
-        val topNumber = (topCSRGB[0]-topCSRGB[2]).toFloat()/topCSRGB.max()!!.toFloat()
-        val bottomNumber = (bottomCSRGB[0]-bottomCSRGB[2]).toFloat()/bottomCSRGB.max()!!.toFloat()
-        val topKickDirection = if(topNumber<COLOR_SENSOR_THRESHOLD) KickDirection.LEFT else KickDirection.RIGHT
-        val bottomKickDirection = if(bottomNumber<COLOR_SENSOR_THRESHOLD) KickDirection.LEFT else KickDirection.RIGHT
+        var retries = 0
+        var topKickDirection = KickDirection.UNKNOWN
+        var topNumber = 0.0f
+        while(retries < 10 && topKickDirection == KickDirection.UNKNOWN) {
+            topNumber = (topCSRGB[0]-topCSRGB[2]).toFloat()/topCSRGB.max()!!.toFloat()
+            topKickDirection = if(topNumber<0.2 && topNumber>-0.2) KickDirection.LEFT else if(topNumber>0.5 && topNumber<0.85) KickDirection.RIGHT else KickDirection.UNKNOWN
+            sleep(1000L/60L)
+        }
+        retries = 0
+        var bottomKickDirection = KickDirection.UNKNOWN
+        var bottomNumber = 0.0f
+        while(retries < 10 && bottomKickDirection == KickDirection.UNKNOWN) {
+            bottomNumber = (bottomCSRGB[0]-bottomCSRGB[2]).toFloat()/bottomCSRGB.max()!!.toFloat()
+            bottomKickDirection = if(bottomNumber<0.2 && bottomNumber>-0.2) KickDirection.LEFT else if(bottomNumber>0.5 && bottomNumber<0.85) KickDirection.RIGHT else KickDirection.UNKNOWN
+        }
         when(topKickDirection) {
             KickDirection.LEFT -> {
                 when(bottomKickDirection) {
@@ -95,6 +106,11 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
                 }
             }
         }
+        opMode.dashboard.addData("Top CS RGB", topCSRGB)
+        opMode.dashboard.addData("Top CS calc#", topNumber)
+        opMode.dashboard.addData("Bottom CS RGB", bottomCSRGB)
+        opMode.dashboard.addData("Bottom CS calc#", bottomNumber)
+        opMode.dashboard.update()
     }
     
     fun up() {
@@ -124,6 +140,12 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
         val thread = Thread(this)
         thread.start()
     }
+    
+    fun purge() {
+        task = Tasks.PURGE
+        val thread = Thread(this)
+        thread.start()
+    }
 
     private fun middle() {
         setKickerPositions(MIDDLE_POSITION, MIDDLE_POSITION)
@@ -134,7 +156,7 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
         bottomKicker.position = bottomPosition
     }
 
-    private fun setFlipPosition(position: Double) {
+    fun setFlipPosition(position: Double) {
         rightFlipServo.position = position
         leftFlipServo.position = position
         balanceServo.position = position
@@ -150,8 +172,8 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
             Tasks.REVEAL -> {
                 setFlipPosition(REVEALED_POSITION)
                 balanceServo.position = 0.7
-                sleep(750)
-                balanceServo.position = REVEALED_POSITION
+                sleep(550)
+                balanceServo.position = 0.0
                 isUp = true
                 task = Tasks.NONE
             }
@@ -187,7 +209,17 @@ class Deployment(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
                 }
                 task = Tasks.NONE
             } 
+            Tasks.PURGE -> {
+                if(isUp) {
+                    setKickerPositions(RIGHT_POSITION, RIGHT_POSITION)
+                    sleep(KICK_DELAY_TIME)
+                    setKickerPositions(LEFT_POSITION, LEFT_POSITION)
+                    sleep(KICK_DELAY_TIME)
+                    middle()
+                }
+            }
         }
+        return;
     }
 
 }

@@ -89,9 +89,6 @@ class CV(private val opMode: BROpMode): RobotSystem(opMode) {
             }
             sleep(35L)
         }
-        opMode.dashboard.addLine("Left confidence: $left")
-        opMode.dashboard.addLine("Center confidence: $center")
-        opMode.dashboard.update()
         return if (center > left) GoldMineralPosition.CENTER else if (left > center) GoldMineralPosition.LEFT else GoldMineralPosition.RIGHT
     }
     fun stopCV() {

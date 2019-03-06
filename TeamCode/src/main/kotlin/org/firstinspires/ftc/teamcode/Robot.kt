@@ -4,6 +4,7 @@ import org.BeehiveRobotics.Library.Util.BROpMode
 import com.qualcomm.robotcore.util.ElapsedTime
 import org.BeehiveRobotics.Library.Robots.Robot
 
+
 internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
     internal lateinit var drive: Drive
     internal lateinit var lift: Lift
@@ -25,9 +26,23 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
         lift.runToPosition(1.0, 2500.0) 
         lift.runForTime(1.0, 100L)
         drive.forward(0.3, 1.0)
-        drive.spinLeft(0.3, 1.0)
+        drive.spinLeft(0.3, 1.2)
         opMode.dashboard.showLine("Done landing")
-
+        sleep(300L)
+    }
+    fun sample(goldMineralPosition: CV.GoldMineralPosition) {
+        drive.spinRight(0.3, 1.2)
+        drive.forward(1.0, 10.0, waitForCompletion = false)
+        sleep(150)
+        lift.runToPosition(-1.0, 2500.0, waitForCompletion = false)
+        drive.waitUntilNotBusy()
+        when(goldMineralPosition) {
+            CV.GoldMineralPosition.LEFT ->   drive.strafeLeft(0.7, 16.0)
+            //GoldMineralPosition.CENTER ->  drive.strafeRight(0.4, 4.0)
+            CV.GoldMineralPosition.RIGHT ->  drive.strafeRight(0.7, 18.0)
+        }
+        drive.forward(0.75, 14.0)   
+        drive.backward(0.75, 11.0)
     }
     
     override fun init() {
@@ -54,6 +69,12 @@ internal class Robot(private val opMode: BROpMode): Robot(opMode), Runnable {
         teamMarker.start()
         val thread = Thread(this)
         thread.start()
+    }
+    fun wiggle() {
+        
+        drive.setRawPowers((-5..5).random().toDouble() / 10.0, (-5..5).random().toDouble() / 10.0, (-5..5).random().toDouble() / 10.0, (-5..5).random().toDouble() / 10.0)
+        deployment.setFlipPosition((900..1000).random().toDouble() / 1000.0)
+        sleep(30)
     }
 
     override fun waitUntilNotBusy() {

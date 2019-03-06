@@ -10,32 +10,28 @@ class CraterNoClaim(): BROpMode(BROpMode.OpModeType.Autonomous) {
     private val robot = Robot(this)
     override fun initialize() {
         robot.init()
+        robot.cv.startCV()
     }
     override fun onStartPressed() {
         robot.start()
-        robot.cv.startCV()
     }
     override fun run() {
         robot.land()
-        val runTime = ElapsedTime()
         val goldMineralPosition = robot.cv.getGoldMineralPosition()
         robot.cv.stopCV()
-        robot.drive.forward(1.0, 14.0, false)
-        sleep(500)
-        robot.lift.runToPosition(1.0, 2000.0, false) //NEEDS TO CHANGE
-        robot.waitUntilNotBusy()
+        robot.drive.spinRight(0.3, 0.7)
+        robot.drive.forward(1.0, 10.0, waitForCompletion = false)
+        sleep(150)
+        robot.lift.runToPosition(-1.0, 2500.0, waitForCompletion = false)
+        robot.drive.waitUntilNotBusy()
         when(goldMineralPosition) {
-            GoldMineralPosition.LEFT -> {
-                robot.drive.strafeLeft(1.0, 16.0)
-            }
-            GoldMineralPosition.CENTER -> {
-                robot.drive.strafeRight(1.0, 6.0)
-            }
-            GoldMineralPosition.RIGHT -> {
-                robot.drive.strafeRight(1.0, 24.0)
-            }
+            GoldMineralPosition.LEFT ->   robot.drive.strafeLeft(0.7, 16.0)
+            //GoldMineralPosition.CENTER -> robot.drive.strafeRight(0.4, 4.0)
+            GoldMineralPosition.RIGHT ->  robot.drive.strafeRight(0.7, 18.0)
         }
-        robot.drive.forward(1.0, 20.0, false)
+        robot.drive.forward(0.75, 14.0, false)   
+        robot.gathering.inBetween()
+        sleep(350)
         robot.gathering.inOutMotor.runForTime(-1.0, 500L)
         robot.gathering.down()
         robot.waitUntilNotBusy()

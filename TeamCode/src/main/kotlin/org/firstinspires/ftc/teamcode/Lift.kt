@@ -37,7 +37,6 @@ class Lift(private val opMode: BROpMode): RobotSystem(opMode) {
 
     fun runToPosition(speed: Double, position: Double, waitForCompletion: Boolean = true) {
         leftMotor.runToPosition(speed, position, false)
-        opMode.dashboard.showLine("sttuck in runtoposition")
         rightMotor.runToPosition(speed, position, waitForCompletion)
     }
 
