@@ -22,7 +22,7 @@ class CraterNormal(): BROpMode(BROpMode.OpModeType.Autonomous) {
         robot.sample(goldMineralPosition)
         when(goldMineralPosition) {
             GoldMineralPosition.LEFT ->   robot.drive.strafeLeft(0.75, 24.0)
-            //GoldMineralPosition.CENTER -> robot.drive.strafeLeft(0.75, 50.0)
+            GoldMineralPosition.CENTER -> robot.drive.strafeLeft(0.75, 50.0)
             GoldMineralPosition.RIGHT ->  robot.drive.strafeLeft(0.75, 64.0)
         }
         robot.drive.spinLeft(0.7, 10.0)
@@ -32,8 +32,9 @@ class CraterNormal(): BROpMode(BROpMode.OpModeType.Autonomous) {
         robot.drive.backward(0.8, 1.0)
         robot.drive.strafeLeft(0.85, 48.0)
         robot.teamMarker.down()
-        robot.drive.spinLeft(1.0, 1.5)
-        robot.drive.strafeRight(0.85, 48.0, waitForCompletion = false)
+        robot.drive.leftBackward(1.0, 3.5)
+        robot.drive.forward(0.4, 1.5)
+        robot.drive.strafeRight(0.65, 48.0, waitForCompletion = false)
         sleep(500)
         robot.teamMarker.up()
         robot.waitUntilNotBusy()

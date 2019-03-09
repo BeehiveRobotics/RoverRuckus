@@ -5,6 +5,7 @@ import org.BeehiveRobotics.Library.Util.BROpMode
 import org.BeehiveRobotics.Library.Motors.Motor
 import org.BeehiveRobotics.Library.Servos.Servo
 import com.qualcomm.robotcore.hardware.Servo.Direction
+import com.qualcomm.robotcore.hardware.DcMotorSimple
 
 class Gathering(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     private val gatherMotor = Motor(opMode, "ggm")
@@ -31,6 +32,7 @@ class Gathering(private val opMode: BROpMode): RobotSystem(opMode), Runnable {
     override fun init() {
         rightServo.direction = Direction.REVERSE
         inOutMotor.rampingType = Motor.RampingType.None
+        inOutMotor.direction = DcMotorSimple.Direction.REVERSE
         gatherMotor.rampingType = Motor.RampingType.None
     }
 
